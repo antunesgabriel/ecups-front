@@ -1,5 +1,6 @@
 import { createActions, createReducer } from "reduxsauce";
 import Immutable from "seamless-immutable";
+import api from "~/services/api";
 
 // Actions e Types
 const { Types, Creators: AuthActions } = createActions({
@@ -7,6 +8,7 @@ const { Types, Creators: AuthActions } = createActions({
   signInSuccess: ["token"],
   signInFailure: null,
   signOut: null,
+  updateToken: ["token"],
 });
 
 export const AuthTypes = Types;
@@ -38,6 +40,10 @@ const HANDLERS = {
       token: null,
       signed: false,
     }),
+  [AuthTypes.UPDATE_TOKEN]: (state, { token }) => {
+    api.defaults.headers.Authorization = `Bearer ${token}`;
+    return Immutable(state).merge({ loading: false, token, signed: true });
+  },
 };
 
 export const authReducer = createReducer(INITIAL_STATE, HANDLERS);

@@ -1,3 +1,4 @@
+import "~/configs/ReactotronConfigs";
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import { Provider } from "react-redux";

@@ -6,7 +6,7 @@ export default (reducers) => {
     {
       key: process.env.REACT_APP_PERSIST_KEY,
       storage,
-      whitelist: ["auth"],
+      whitelist: ["auth", "user"],
     },
     reducers
   );

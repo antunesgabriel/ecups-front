@@ -5,13 +5,14 @@ import api from "~/services/api";
 import AuthActions from "~/redux/ducks/authDuck";
 import history from "~/utils/history";
 import FeedbackActions from "../ducks/feedbackDuck";
+import UserActions from "../ducks/userDuck";
 
 export function* signIn({ email, password, prefix }) {
   try {
     const url = `${prefix ? "/" + prefix : ""}/dashboard`;
     const { data } = yield call(api.post, "/auth", { email, password });
     api.defaults.headers.Authorization = `Bearer ${data._token}`;
-    // yield put(UserActions.requestUserSuccess(data.user));
+    yield put(UserActions.setUser(data.user));
     yield put(FeedbackActions.clearFeedback());
     yield put(AuthActions.signInSuccess(data._token));
     history.push(url);
