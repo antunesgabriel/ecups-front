@@ -18,6 +18,7 @@ export function* signIn({ email, password, prefix }) {
     history.push(url);
   } catch (err) {
     yield put(AuthActions.signInFailure());
+    console.log(err.response);
     if (
       err.response &&
       err.response.data.statusCode < 500 &&

@@ -1,23 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-// .wrapper {
-//   height: 100%;
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   .content {
-//     background-color: #292C3A;
-//     padding: 30px 15px;
-//     border-radius: 10px;
-//     width: 100%;
-//     max-width: 500px;
-//     min-width: 200px;
-
 export const useStyles = makeStyles((theme) => ({
   wrapper: {
     minHeight: "100vh",
-    width: "100vw",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -25,14 +11,14 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: theme.spacing(2),
     background:
-      "linear-gradient(to right bottom, rgba(38,41,54,0.8), rgba(38,41,54,0.9)), url(/img/wallpaper.png)",
+      "linear-gradient(to right bottom, rgba(38,41,54,0.8), rgba(38,41,54,0.9)), url(/img/wallpaper3.jpg)",
     backgroundRepeat: "no-repeat",
-    backgroundColor: "#262936",
+    backgroundColor: theme.palette.background.default,
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
   content: {
-    backgroundColor: "#292C3A",
+    backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(3),
     borderRadius: 10,
     width: "100%",
@@ -54,9 +40,7 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  submit: {
-    marginTop: theme.spacing(2),
-  },
+
   formFooter: {
     marginTop: theme.spacing(2),
   },

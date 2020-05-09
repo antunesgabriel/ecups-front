@@ -13,12 +13,13 @@ export default {
     main: "#FF7500",
     light: "#FEF4D9",
   },
-  // secondary: {
-  //   contrastText: white,
-  //   dark: "#7A1D00",
-  //   main: "#FF7500",
-  //   light: "#FFEECC",
-  // },
+
+  secondary: {
+    contrastText: white,
+    dark: "#E6EAF5",
+    main: "#292C3A",
+    light: "#07091B",
+  },
   success: {
     contrastText: white,
     dark: colors.green[900],
@@ -48,10 +49,10 @@ export default {
   //   secondary: colors.blueGrey[600],
   //   link: colors.blue[600],
   // },
-  // background: {
-  //   default: "#F4F6F8",
-  //   paper: white,
-  // },
+  background: {
+    default: "#262936",
+    paper: black,
+  },
   icon: colors.blueGrey[600],
   divider: colors.grey[200],
 };

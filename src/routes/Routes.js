@@ -5,9 +5,10 @@ import RouteAdmin from "./RouteAdmin";
 import RoutePlayer from "./RoutePlayer";
 
 // ADMIN
-import { SignIn } from "~/pages/Admin/SignIn/SignIn.page";
+import { SignInAdmin } from "~/pages/Admin/SignIn/SignIn.page";
 import LogoutPage from "~/pages/Logout/Logout.page";
 import RootPage from "~/pages/Root/RootPage";
+import { SignUpAdmin } from "~/pages/Admin/SignUp/SignUp.page";
 
 const Routes = () => (
   <Switch>
@@ -15,7 +16,8 @@ const Routes = () => (
     <Route exact path="/logout" component={LogoutPage} />
 
     {/* ADMIN ROUTES */}
-    <RouteAdmin exact path="/admin/signin" component={SignIn} />
+    <RouteAdmin exact path="/admin/signin" component={SignInAdmin} />
+    <RouteAdmin exact path="/admin/signup" component={SignUpAdmin} />
     <RouteAdmin
       exact
       path="/admin/dashboard"

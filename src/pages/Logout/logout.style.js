@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     position: "relative",
     flexDirection: "column",
     padding: theme.spacing(2),
-    backgroundColor: "#262936",
+    backgroundColor: theme.palette.background.default,
   },
   text: {
     marginTop: theme.spacing(2),

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import Avatar from "@material-ui/core/Avatar";
+import { Link as RouteLink } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -12,7 +12,7 @@ import { CircularProgress } from "@material-ui/core";
 import Copyright from "~/components/Copyright";
 import AuthActions from "~/redux/ducks/authDuck";
 
-import { useStyles } from "./signin.styles";
+import { useStyles } from "./signIn.styles";
 
 function SignInPage({ signIn, loading }) {
   const [email, setEmail] = useState("");
@@ -80,8 +80,8 @@ function SignInPage({ signIn, loading }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Não possui conta? Crie um"}
+                <Link variant="body2" to="/admin/signup" component={RouteLink}>
+                  {"Não possui conta? Crie uma"}
                 </Link>
               </Grid>
             </Grid>
@@ -100,4 +100,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(AuthActions, dispatch);
 
-export const SignIn = connect(mapStateToProps, mapActionsToProps)(SignInPage);
+export const SignInAdmin = connect(
+  mapStateToProps,
+  mapActionsToProps
+)(SignInPage);

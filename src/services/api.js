@@ -20,7 +20,7 @@ api.interceptors.response.use(
     ) {
       history.push("/logout");
     }
-    return err;
+    return Promise.reject(err);
   }
 );
 
