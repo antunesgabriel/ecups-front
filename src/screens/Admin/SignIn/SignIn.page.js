@@ -7,21 +7,21 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 
 import Copyright from "~/components/Copyright";
 import AuthActions from "~/redux/ducks/authDuck";
 
 import { useStyles } from "./signin.styles";
 
-function SignInPage({ signIn, erro, loading, clearErro }) {
+function SignInPage({ signIn, loading }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
   const handleClick = () => {
-    signIn(email, password, "superadmin");
+    signIn(email, password, "admin");
   };
   const handleSubmit = (e) => e.preventDefault();
 
@@ -95,7 +95,6 @@ function SignInPage({ signIn, erro, loading, clearErro }) {
 
 const mapStateToProps = (state) => ({
   loading: state.auth.loading,
-  erro: state.auth.signInErro,
 });
 
 const mapActionsToProps = (dispatch) =>

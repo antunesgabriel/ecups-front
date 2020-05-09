@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "@material-ui/styles";
 import { Router } from "react-router-dom";
+import Feedback from "~/components/Feedback";
 
 import history from "~/utils/history";
 import Routes from "~/routes/Routes";
@@ -17,6 +18,7 @@ function App() {
         <CssBaseline />
         <PersistGate persistor={persistor}>
           <Router history={history}>
+            <Feedback />
             <Routes />
           </Router>
         </PersistGate>
