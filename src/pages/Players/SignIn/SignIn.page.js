@@ -26,13 +26,13 @@ function SignInPage({ signIn, loading, setFeedback }) {
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
-  const handleSubmit = (e) => e.preventDefault();
   const handleClick = async () => {
     const isValid = await validate();
     if (isValid) {
-      loginAdmin();
+      loginPlayer();
     }
   };
+  const handleSubmit = (e) => e.preventDefault();
 
   const validate = async () => {
     try {
@@ -56,8 +56,8 @@ function SignInPage({ signIn, loading, setFeedback }) {
     }
   };
 
-  const loginAdmin = () => {
-    signIn(email, password, "admin");
+  const loginPlayer = () => {
+    signIn(email, password, "player");
   };
 
   const classes = useStyles();
@@ -86,8 +86,8 @@ function SignInPage({ signIn, loading, setFeedback }) {
             />
             <TextField
               variant="outlined"
-              margin="normal"
               error={error.has && error.field === "password"}
+              margin="normal"
               required
               fullWidth
               name="password"
@@ -117,7 +117,7 @@ function SignInPage({ signIn, loading, setFeedback }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" to="/admin/signup" component={RouteLink}>
+                <Link variant="body2" to="/player/signup" component={RouteLink}>
                   {"Não possui conta? Crie uma"}
                 </Link>
               </Grid>
@@ -137,7 +137,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) =>
   bindActionCreators({ ...AuthActions, ...FeedbackActions }, dispatch);
 
-export const SignInAdmin = connect(
+export const SignInPlayer = connect(
   mapStateToProps,
   mapActionsToProps
 )(SignInPage);

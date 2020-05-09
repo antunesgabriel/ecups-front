@@ -9,6 +9,8 @@ import { SignInAdmin } from "~/pages/Admin/SignIn/SignIn.page";
 import LogoutPage from "~/pages/Logout/Logout.page";
 import RootPage from "~/pages/Root/RootPage";
 import { SignUpAdmin } from "~/pages/Admin/SignUp/SignUp.page";
+import { SignInPlayer } from "~/pages/Players/SignIn/SignIn.page";
+import { SignUpPlayer } from "~/pages/Players/SignUp/SignUp.page";
 
 const Routes = () => (
   <Switch>
@@ -26,11 +28,8 @@ const Routes = () => (
     />
 
     {/* PLAYER ROUTES */}
-    <RoutePlayer
-      exact
-      path="/player/signin"
-      component={() => <h1>login player</h1>}
-    />
+    <RoutePlayer exact path="/player/signin" component={SignInPlayer} />
+    <RoutePlayer exact path="/player/signup" component={SignUpPlayer} />
     <RoutePlayer
       exact
       path="/player/dashboard"

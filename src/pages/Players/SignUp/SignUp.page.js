@@ -24,14 +24,12 @@ function SignUpPage({ setFeedback }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [key, setKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     has: false,
     field: null,
   });
 
-  const handleChangeKey = (e) => setKey(e.target.value);
   const handleChangeName = (e) => setName(e.target.value);
   const handleChangeSurname = (e) => setSurname(e.target.value);
   const handleChangeNickname = (e) => setNickname(e.target.value);
@@ -70,7 +68,6 @@ function SignUpPage({ setFeedback }) {
         email,
         password,
         confirmPassword,
-        key,
       });
       return true;
     } catch (err) {
@@ -86,18 +83,17 @@ function SignUpPage({ setFeedback }) {
 
   const createAdmin = async () => {
     try {
-      const { data } = await api.post("/admin", {
+      const { data } = await api.post("/user", {
         name,
         surname,
         nickname,
         email,
         password,
         confirmPassword,
-        key,
       });
       setLoading(false);
       setFeedback("success", data.message);
-      history.push("/admin/signin");
+      history.push("/player/signin");
     } catch (err) {
       setLoading(false);
       const { response } = err;
@@ -113,7 +109,7 @@ function SignUpPage({ setFeedback }) {
     <main className={classes.wrapper}>
       <Paper elevation={3} square className={classes.content}>
         <header className={classes.header}>
-          <h1 className={classes.h1}>Criar conta ADMIN:</h1>
+          <h1 className={classes.h1}>Criar conta:</h1>
         </header>
         <section>
           <form action="POST" className={classes.form} onSubmit={handleSubmit}>
@@ -198,7 +194,7 @@ function SignUpPage({ setFeedback }) {
                 />
               </Grid>
 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -211,22 +207,6 @@ function SignUpPage({ setFeedback }) {
                   autoFocus
                   onChange={handleChangeNickname}
                   value={nickname}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  error={error.has && error.field === "key"}
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="key"
-                  label="Key"
-                  type="password"
-                  id="key"
-                  onChange={handleChangeKey}
-                  value={key}
                 />
               </Grid>
 
@@ -247,7 +227,7 @@ function SignUpPage({ setFeedback }) {
 
             <Grid container className={classes.formFooter}>
               <Grid item>
-                <Link variant="body2" to="/admin/signin" component={RouteLink}>
+                <Link variant="body2" to="/player/signin" component={RouteLink}>
                   {"Já possui conta? Faça login"}
                 </Link>
               </Grid>
@@ -263,4 +243,4 @@ function SignUpPage({ setFeedback }) {
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 
-export const SignUpAdmin = connect(null, mapActionsToProps)(SignUpPage);
+export const SignUpPlayer = connect(null, mapActionsToProps)(SignUpPage);
