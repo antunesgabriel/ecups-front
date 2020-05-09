@@ -22,7 +22,7 @@ function RouteAdmin({
 
   if (signed && (!role || role.role !== ADMIN)) {
     setFeedback(
-      "wraning",
+      "warning",
       "Você não possui permissão para acessar está pagina"
     );
     clearUser();

@@ -5,12 +5,16 @@ import RouteAdmin from "./RouteAdmin";
 import RoutePlayer from "./RoutePlayer";
 
 // ADMIN
-import { SignIn } from "~/screens/Admin/SignIn/SignIn.page";
+import { SignIn } from "~/pages/Admin/SignIn/SignIn.page";
+import LogoutPage from "~/pages/Logout/Logout.page";
+import RootPage from "~/pages/Root/RootPage";
 
 const Routes = () => (
   <Switch>
+    <Route exact path="/" component={RootPage} />
+    <Route exact path="/logout" component={LogoutPage} />
+
     {/* ADMIN ROUTES */}
-    <Route exact path="/" component={() => <h1>ola mundo</h1>} />
     <RouteAdmin exact path="/admin/signin" component={SignIn} />
     <RouteAdmin
       exact
@@ -18,6 +22,8 @@ const Routes = () => (
       isPrivate
       component={() => <h1> dashboard</h1>}
     />
+
+    {/* PLAYER ROUTES */}
     <RoutePlayer
       exact
       path="/player/signin"
