@@ -6,18 +6,19 @@ const black = "#000000";
 export default {
   black,
   white,
+  type: "dark",
   primary: {
     contrastText: white,
-    dark: "#0A0C27",
-    main: "#373B53",
-    light: "#E5E9F6",
-  },
-  secondary: {
-    contrastText: white,
-    dark: "#7A1D00",
+    dark: "#79310C",
     main: "#FF7500",
-    light: "#FFEECC",
+    light: "#FEF4D9",
   },
+  // secondary: {
+  //   contrastText: white,
+  //   dark: "#7A1D00",
+  //   main: "#FF7500",
+  //   light: "#FFEECC",
+  // },
   success: {
     contrastText: white,
     dark: colors.green[900],
@@ -42,15 +43,15 @@ export default {
     main: colors.red[600],
     light: colors.red[400],
   },
-  text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
-    link: colors.blue[600],
-  },
-  background: {
-    default: "#F4F6F8",
-    paper: white,
-  },
+  // text: {
+  //   primary: colors.blueGrey[900],
+  //   secondary: colors.blueGrey[600],
+  //   link: colors.blue[600],
+  // },
+  // background: {
+  //   default: "#F4F6F8",
+  //   paper: white,
+  // },
   icon: colors.blueGrey[600],
   divider: colors.grey[200],
 };
