@@ -36,7 +36,7 @@ function RouteAdmin({
   }
 
   if (signed && !isPrivate && role && role.role === ADMIN) {
-    return <Redirect to="/admin/dashboard" />;
+    return <Redirect to="/admin/home" />;
   }
 
   return <Route {...rest} component={Component} />;

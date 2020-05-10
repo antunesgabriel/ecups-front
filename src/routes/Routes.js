@@ -11,6 +11,7 @@ import RootPage from "~/pages/Root/RootPage";
 import { SignUpAdmin } from "~/pages/Admin/SignUp/SignUp.page";
 import { SignInPlayer } from "~/pages/Players/SignIn/SignIn.page";
 import { SignUpPlayer } from "~/pages/Players/SignUp/SignUp.page";
+import { AdminHome } from "~/pages/Admin/Home/AdminHome.page";
 
 const Routes = () => (
   <Switch>
@@ -20,19 +21,14 @@ const Routes = () => (
     {/* ADMIN ROUTES */}
     <RouteAdmin exact path="/admin/signin" component={SignInAdmin} />
     <RouteAdmin exact path="/admin/signup" component={SignUpAdmin} />
-    <RouteAdmin
-      exact
-      path="/admin/dashboard"
-      isPrivate
-      component={() => <h1> dashboard</h1>}
-    />
+    <RouteAdmin exact path="/admin/home" isPrivate component={AdminHome} />
 
     {/* PLAYER ROUTES */}
     <RoutePlayer exact path="/player/signin" component={SignInPlayer} />
     <RoutePlayer exact path="/player/signup" component={SignUpPlayer} />
     <RoutePlayer
       exact
-      path="/player/dashboard"
+      path="/player/home"
       isPrivate
       component={() => <h1>dashboard player</h1>}
     />
