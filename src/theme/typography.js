@@ -73,13 +73,13 @@ export default {
     fontSize: "14px",
   },
   caption: {
-    color: palette.text.secondary,
+    color: palette.text.disable,
     fontSize: "11px",
     letterSpacing: "0.33px",
     lineHeight: "13px",
   },
   overline: {
-    color: palette.text.secondary,
+    color: palette.text.disable,
     fontSize: "11px",
     fontWeight: 500,
     letterSpacing: "0.33px",

@@ -12,8 +12,8 @@ export const useStyles = makeStyles((theme) => ({
     paddingLeft: 240,
   },
   content: {
-    height: "calc(100% - 64px)",
-    backgroundColor: theme.palette.background.light,
+    minHeight: "calc(100% - 64px)",
+    backgroundColor: theme.palette.background.dark,
     padding: theme.spacing(2, 4),
   },
 }));

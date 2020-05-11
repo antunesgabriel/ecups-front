@@ -5,17 +5,15 @@ import clsx from "clsx";
 import { AppBar, Toolbar, Badge, Hidden, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
-import Avatar from "@material-ui/core/Avatar";
-import InputIcon from "@material-ui/icons/Input";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { useStyles } from "./topBar.styles";
 import { connect } from "react-redux";
+import history from "~/utils/history";
 
-const APIURL = process.env.REACT_APP_API_URL;
-
-const TopBar = ({ onSidebarOpen, user }) => {
+const TopBar = ({ onSidebarOpen }) => {
   const classes = useStyles();
-  console.log(user);
+
   const [notifications] = useState([]);
 
   return (
@@ -26,7 +24,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
         </RouterLink>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
-          <IconButton color="inherit">
+          <IconButton className={classes.icon}>
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -35,19 +33,15 @@ const TopBar = ({ onSidebarOpen, user }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          {/* <IconButton className={classes.signOutButton} color="inherit">
-            <InputIcon />
-          </IconButton> */}
-          <IconButton>
-            <Avatar
-              alt={`${user.name} ${user.surname}`}
-              src={user.avatar ? `${APIURL}/files/${user.avatar}` : ""}
-              className={classes.small}
-            />
+          <IconButton
+            className={classes.signOutButton}
+            onClick={() => history.push("/logout")}
+          >
+            <ExitToAppIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton color="inherit" onClick={onSidebarOpen}>
+          <IconButton className={classes.icon} onClick={onSidebarOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
@@ -57,7 +51,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
 };
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.user.user,
 });
 
 export default connect(mapStateToProps)(TopBar);

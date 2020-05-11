@@ -1,15 +1,35 @@
 import React from "react";
 
-import DashboardIcon from "@material-ui/icons/Dashboard";
+import LoyaltyIcon from "@material-ui/icons/Loyalty";
+import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import SettingsIcon from "@material-ui/icons/Settings";
+import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
+import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
+import GamepadIcon from "@material-ui/icons/Gamepad";
+import PersonIcon from "@material-ui/icons/Person";
 
 const ADMIN = [
   {
     title: "Home",
     href: "/admin/home",
-    icon: <DashboardIcon />,
+    icon: <HomeIcon />,
+  },
+  {
+    title: "Perfil",
+    href: "/admin/account",
+    icon: <PersonIcon />,
+  },
+  {
+    title: "Games",
+    href: "/admin/games",
+    icon: <SportsEsportsIcon />,
+  },
+  {
+    title: "Ligas",
+    href: "/admin/leagues",
+    icon: <GamepadIcon />,
   },
   {
     title: "Usuários",
@@ -17,14 +37,14 @@ const ADMIN = [
     icon: <PeopleIcon />,
   },
   {
-    title: "Conta",
-    href: "/admin/account",
-    icon: <AccountBoxIcon />,
+    title: "Ocupações",
+    href: "/admin/role",
+    icon: <LoyaltyIcon />,
   },
   {
-    title: "Configurações",
-    href: "/admin/settings",
-    icon: <SettingsIcon />,
+    title: "Tipos de ligas",
+    href: "/admin/league-type",
+    icon: <VideogameAssetIcon />,
   },
 ];
 
@@ -32,7 +52,7 @@ const PLAYER = [
   {
     title: "Home",
     href: "/player/home",
-    icon: <DashboardIcon />,
+    icon: <HomeIcon />,
   },
   {
     title: "Usuários",

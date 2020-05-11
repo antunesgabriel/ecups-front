@@ -18,7 +18,7 @@ function RoutePlayer({
   ...rest
 }) {
   const { signed } = store.getState().auth;
-  const { role } = store.getState().user;
+  const { role } = store.getState().user.user;
 
   if (signed && (!role || role.role !== PLAYER)) {
     setFeedback(

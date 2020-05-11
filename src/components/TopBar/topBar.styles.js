@@ -3,13 +3,18 @@ import { makeStyles } from "@material-ui/styles";
 export const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: "none",
-    backgroundColor: theme.palette.background.default,
+    width: "calc(100% - 240px)",
+    backgroundColor: theme.palette.background.main,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   flexGrow: {
     flexGrow: 1,
   },
   signOutButton: {
     marginLeft: theme.spacing(1),
+    color: theme.palette.icon,
   },
   logo: {
     maxWidth: "100%",
@@ -19,5 +24,8 @@ export const useStyles = makeStyles((theme) => ({
   small: {
     width: theme.spacing(4),
     height: theme.spacing(4),
+  },
+  icon: {
+    color: theme.palette.icon,
   },
 }));

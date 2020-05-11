@@ -1,8 +1,10 @@
 import axios from "axios";
 import history from "~/utils/history";
 
+export const APIURL = process.env.REACT_APP_API_URL;
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: APIURL,
   crossDomain: true,
 });
 

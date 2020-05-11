@@ -3,13 +3,11 @@ import { makeStyles } from "@material-ui/styles";
 export const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
-    [theme.breakpoints.up("lg")]: {
-      marginTop: 64,
-      height: "calc(100% - 64px)",
-    },
+    height: "100%",
+    borderRight: "none",
   },
   root: {
-    backgroundColor: theme.palette.white,
+    backgroundColor: theme.palette.background.light,
     display: "flex",
     flexDirection: "column",
     height: "100%",
