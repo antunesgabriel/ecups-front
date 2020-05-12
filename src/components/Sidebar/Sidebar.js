@@ -10,7 +10,7 @@ import pages from "./pages";
 import { connect } from "react-redux";
 import Profile from "./Profile";
 
-const Sidebar = ({ open, variant, onClose, className, user, ...rest }) => {
+const Sidebar = ({ open, variant, onClose, className, user }) => {
   const classes = useStyles();
 
   return (
@@ -21,7 +21,7 @@ const Sidebar = ({ open, variant, onClose, className, user, ...rest }) => {
       open={open}
       variant={variant}
     >
-      <div {...rest} className={clsx(classes.root, className)}>
+      <div className={clsx(classes.root, className)}>
         <Profile />
         <Divider className={classes.divider} />
         <SidebarNav className={classes.nav} pages={pages[user.role.role]} />

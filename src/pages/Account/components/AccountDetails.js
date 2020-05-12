@@ -24,8 +24,6 @@ const AccountDetails = ({ className, user, updateUser, loading, ...rest }) => {
     surname: user.surname,
     email: user.email,
     nickname: user.nickname,
-    password: undefined,
-    oldPassword: undefined,
   });
   const [error, setError] = useState({
     has: false,
@@ -141,30 +139,6 @@ const AccountDetails = ({ className, user, updateUser, loading, ...rest }) => {
                 onChange={handleChange}
                 type="text"
                 value={values.nickname}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="Nova Senha"
-                margin="dense"
-                name="password"
-                onChange={handleChange}
-                type="text"
-                value={values.password}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="Senha Anterior"
-                margin="dense"
-                name="oldPassword"
-                onChange={handleChange}
-                type="text"
-                value={values.oldPassword}
                 variant="outlined"
               />
             </Grid>

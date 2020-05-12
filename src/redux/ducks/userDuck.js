@@ -38,17 +38,21 @@ const HANDLERS = {
     Immutable(state).merge({ user: { ...user }, loading: false }),
   [UserTypes.CLEAR_USER]: (state) =>
     Immutable(state).merge({
-      name: null,
-      email: null,
-      surname: null,
-      nickname: null,
-      avatar: null,
-      address: null,
-      role: null,
-      userId: null,
+      user: {
+        name: null,
+        email: null,
+        surname: null,
+        nickname: null,
+        avatar: null,
+        address: null,
+        role: null,
+        userId: null,
+      },
     }),
   [UserTypes.SET_USER_AVATAR]: (state, { filename }) =>
-    Immutable(state).merge({ avatar: filename }),
+    Immutable(state).merge({
+      user: { ...state.user, avatar: filename },
+    }),
   [UserTypes.UPDATE_USER]: (state) => Immutable(state).merge({ loading: true }),
   [UserTypes.USER_FAILURE]: (state) =>
     Immutable(state).merge({ loading: false }),

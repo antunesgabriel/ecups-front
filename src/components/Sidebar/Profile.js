@@ -28,7 +28,7 @@ const Profile = ({ user, className, ...rest }) => {
   const classes = useStyles();
 
   return (
-    <div {...rest} className={clsx(classes.root, className)}>
+    <div className={clsx(classes.root, className)}>
       <Avatar
         alt={`${user.name} ${user.surname}`}
         className={classes.avatar}

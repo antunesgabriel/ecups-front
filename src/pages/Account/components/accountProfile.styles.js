@@ -18,4 +18,10 @@ export const useStyles = makeStyles((theme) => ({
   uploadButton: {
     marginRight: theme.spacing(2),
   },
+  file: {
+    display: "none",
+  },
+  progressLabel: {
+    marginBottom: theme.spacing(2),
+  },
 }));
