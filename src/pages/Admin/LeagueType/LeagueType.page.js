@@ -10,30 +10,28 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import { ModalConfirm } from "~/components/ModalConfirm/ModalConfirm";
-import GameForm from "./components/GameForm";
+import LeagueTypeForm from "./components/LeagueTypeForm";
 
 const cols = [
-  { col: "Logo", id: "col-logo" },
   { col: "ID", id: "col-id" },
-  { col: "Game", id: "col-game" },
+  { col: "Tipo de  Liga", id: "col-league-type" },
 ];
 
 const keys = [
-  { key: "logo", type: "img" },
-  { key: "gameId", type: "text" },
-  { key: "game", type: "text" },
+  { key: "leagueTypeId", type: "text" },
+  { key: "type", type: "text" },
 ];
 
-const GamePage = ({ setFeedback }) => {
-  const [games, setGames] = useState([]);
+const LeagueTypePage = ({ setFeedback }) => {
+  const [leagueTypes, setLeagueTypes] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [choseItem, setChoseItem] = useState(null);
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
   const [openForm, setOpenForm] = useState(false);
 
-  const END_POINT = "/game";
-  const ID = "gameId";
+  const END_POINT = "/league-type";
+  const ID = "leagueTypeId";
 
   useEffect(() => {
     getList();
@@ -86,7 +84,7 @@ const GamePage = ({ setFeedback }) => {
       const { data } = await api.get(
         `${END_POINT}?page=${page}&limit=${rowsPerPage}`
       );
-      setGames(data.items);
+      setLeagueTypes(data.items);
     } catch (err) {
       if (err.response && err.response.status < 500) {
         return setFeedback("error", err.response.data.message);
@@ -119,7 +117,7 @@ const GamePage = ({ setFeedback }) => {
         handleConfirm={handleConfirm}
       />
       {!!choseItem && (
-        <GameForm
+        <LeagueTypeForm
           setChoseItem={setChoseItem}
           item={choseItem}
           getList={getList}
@@ -130,10 +128,10 @@ const GamePage = ({ setFeedback }) => {
       )}
       <Toolbar handleClickNewItem={handleClickNewItem} />
       <DinamicTable
-        items={games}
+        items={leagueTypes}
         cols={cols}
         keys={keys}
-        id="gameId"
+        id="leagueTypeId"
         handlePageChange={handlePageChange}
         handleRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPage={rowsPerPage}
@@ -148,4 +146,4 @@ const GamePage = ({ setFeedback }) => {
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 
-export default connect(null, mapActionsToProps)(GamePage);
+export default connect(null, mapActionsToProps)(LeagueTypePage);

@@ -2,13 +2,11 @@ import React from "react";
 import clsx from "clsx";
 import { Button } from "@material-ui/core";
 
-import SearchInput from "../SearchInput/SearchInput";
+// import SearchInput from "../SearchInput/SearchInput";
 
 import { useStyles } from "./toolbar.styles";
 
-const Toolbar = (props) => {
-  const { className, ...rest } = props;
-
+const Toolbar = ({ className, handleClickNewItem, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -17,17 +15,21 @@ const Toolbar = (props) => {
         <span className={classes.spacer} />
         <Button className={classes.importButton}>Importar</Button>
         <Button className={classes.exportButton}>Exportar</Button>
-        <Button color="primary" variant="contained">
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleClickNewItem}
+        >
           Novo
         </Button>
       </div>
-      <div className={classes.row}>
+      {/* <div className={classes.row}>
         <SearchInput
           className={classes.searchInput}
           placeholder="Search user"
           onChange={() => {}}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -38,12 +38,12 @@ const ADMIN = [
   },
   {
     title: "Ocupações",
-    href: "/admin/role",
+    href: "/admin/roles",
     icon: <LoyaltyIcon />,
   },
   {
     title: "Tipos de ligas",
-    href: "/admin/league-type",
+    href: "/admin/league-types",
     icon: <VideogameAssetIcon />,
   },
 ];

@@ -23,6 +23,10 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
   },
   tableRow: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(2),
+  },
+  tableEmpty: {
+    padding: theme.spacing(2),
+    textAlign: "center",
   },
 }));

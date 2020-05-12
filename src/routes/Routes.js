@@ -13,7 +13,9 @@ import { SignInPlayer } from "~/pages/Players/SignIn/SignIn.page";
 import { SignUpPlayer } from "~/pages/Players/SignUp/SignUp.page";
 import { AdminHome } from "~/pages/Admin/Home/AdminHome.page";
 import Account from "~/pages/Account/Account.page";
-import Game from "~/pages/Admin/Game/Game.page";
+import GamePage from "~/pages/Admin/Game/Game.page";
+import RolePage from "~/pages/Admin/Role/Role.page";
+import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
 
 const Routes = () => (
   <Switch>
@@ -25,7 +27,14 @@ const Routes = () => (
     <RouteAdmin exact path="/admin/signup" component={SignUpAdmin} />
     <RouteAdmin exact path="/admin/home" isPrivate component={AdminHome} />
     <RouteAdmin exact path="/admin/account" isPrivate component={Account} />
-    <RouteAdmin exact path="/admin/games" isPrivate component={Game} />
+    <RouteAdmin exact path="/admin/games" isPrivate component={GamePage} />
+    <RouteAdmin exact path="/admin/roles" isPrivate component={RolePage} />
+    <RouteAdmin
+      exact
+      path="/admin/league-types"
+      isPrivate
+      component={LeagueTypePage}
+    />
 
     {/* PLAYER ROUTES */}
     <RoutePlayer exact path="/player/signin" component={SignInPlayer} />

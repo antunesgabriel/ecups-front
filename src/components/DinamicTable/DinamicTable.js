@@ -1,71 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import clsx from "clsx";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import IconButton from "@material-ui/core/IconButton";
+import EditIcon from "@material-ui/icons/Edit";
 import {
   Card,
   CardActions,
   CardContent,
   Avatar,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
   TablePagination,
+  Typography,
 } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import { APIURL } from "~/services/api";
 
 import { useStyles } from "./dinamicTable.styles";
 import { format } from "date-fns";
 
-const DinamicTable = ({ className, cols, keys, items, id, ...rest }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [page, setPage] = useState(0);
-
+const DinamicTable = ({
+  className,
+  cols,
+  keys,
+  items,
+  id,
+  rowsPerPage,
+  handlePageChange,
+  handleRowsPerPageChange,
+  handleDeleteItem,
+  handleEditItem,
+  page,
+  ...rest
+}) => {
   const classes = useStyles();
-
-  const handleSelectAll = (event) => {
-    let selectedItems;
-
-    if (event.target.checked) {
-      selectedItems = items.map((items) => items[id]);
-    } else {
-      selectedItems = [];
-    }
-
-    setSelectedItems(selectedItems);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedItems.indexOf(id);
-    let newSelectedItems = [];
-
-    if (selectedIndex === -1) {
-      newSelectedItems = newSelectedItems.concat(selectedItems, id);
-    } else if (selectedIndex === 0) {
-      newSelectedItems = newSelectedItems.concat(selectedItems.slice(1));
-    } else if (selectedIndex === selectedItems.length - 1) {
-      newSelectedItems = newSelectedItems.concat(selectedItems.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedItems = newSelectedItems.concat(
-        selectedItems.slice(0, selectedIndex),
-        selectedItems.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedItems(newSelectedItems);
-  };
-
-  const handlePageChange = (event, page) => {
-    setPage(page);
-  };
-
-  const handleRowsPerPageChange = (event) => {
-    setRowsPerPage(event.target.value);
-  };
 
   const types = {
     img: (src, item, key) => (
@@ -89,45 +61,18 @@ const DinamicTable = ({ className, cols, keys, items, id, ...rest }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={
-                        !!selectedItems.length &&
-                        selectedItems.length === items.length
-                      }
-                      color="primary"
-                      indeterminate={
-                        selectedItems.length > 0 &&
-                        selectedItems.length < items.length
-                      }
-                      onChange={handleSelectAll}
-                    />
-                  </TableCell>
                   {cols.map((col) => (
                     <TableCell key={col.id}>{col.col}</TableCell>
                   ))}
+                  <TableCell />
+                  <TableCell />
                 </TableRow>
               </TableHead>
               <TableBody>
                 {!!items.length && (
                   <>
                     {items.slice(0, rowsPerPage).map((item) => (
-                      <TableRow
-                        hover
-                        key={item[id]}
-                        selected={selectedItems.indexOf(item[id]) !== -1}
-                      >
-                        <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={selectedItems.indexOf(item[id]) !== -1}
-                            color="primary"
-                            onChange={(event) =>
-                              handleSelectOne(event, item[id])
-                            }
-                            value="true"
-                          />
-                        </TableCell>
-
+                      <TableRow hover key={item[id]}>
                         {keys.map((key) =>
                           types[key.type](
                             item[key.key],
@@ -135,6 +80,22 @@ const DinamicTable = ({ className, cols, keys, items, id, ...rest }) => {
                             `td-${item[id]}-${key.key}`
                           )
                         )}
+                        <TableCell padding="checkbox">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => handleEditItem(item)}
+                          >
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell padding="checkbox">
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() => handleDeleteItem(item)}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </>
@@ -143,6 +104,13 @@ const DinamicTable = ({ className, cols, keys, items, id, ...rest }) => {
             </Table>
           </div>
         </PerfectScrollbar>
+        {!items.length && (
+          <div className={classes.tableEmpty}>
+            <Typography variant="caption">
+              Clique em <b>novo</b> para adcionar um item
+            </Typography>
+          </div>
+        )}
       </CardContent>
       <CardActions className={classes.actions}>
         <TablePagination
