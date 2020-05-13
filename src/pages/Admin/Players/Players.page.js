@@ -10,19 +10,29 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import { ModalConfirm } from "~/components/ModalConfirm/ModalConfirm";
-import RoleForm from "./components/RoleForm";
+import PlayerForm from "./components/PlayerForm";
 
 const cols = [
-  { col: "ID", id: "col-id" },
-  { col: "Role", id: "col-role" },
+  { col: "", id: "col-avatar" },
+  { col: "ID", id: "col-user-id" },
+  { col: "Nome", id: "col-name" },
+  { col: "Sobrenome", id: "col-surname" },
+  { col: "Nickname", id: "col-nickname" },
+  { col: "Email", id: "col-email" },
+  { col: "Data de criação", id: "col-createdAt" },
 ];
 
 const keys = [
-  { key: "roleId", type: "text" },
-  { key: "role", type: "text" },
+  { key: "avatar", type: "img" },
+  { key: "userId", type: "text" },
+  { key: "name", type: "text" },
+  { key: "surname", type: "text" },
+  { key: "nickname", type: "text" },
+  { key: "email", type: "text" },
+  { key: "createdAt", type: "date" },
 ];
 
-const RolePage = ({ setFeedback }) => {
+const PlayersPage = ({ setFeedback }) => {
   const [roles, setRole] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
@@ -30,8 +40,8 @@ const RolePage = ({ setFeedback }) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
   const [openForm, setOpenForm] = useState(false);
 
-  const END_POINT = "/role";
-  const ID = "roleId";
+  const END_POINT = "/user";
+  const ID = "userId";
 
   useEffect(() => {
     getList();
@@ -69,7 +79,13 @@ const RolePage = ({ setFeedback }) => {
   };
 
   const handleClickNewItem = () => {
-    setChoseItem({ role: "" });
+    setChoseItem({
+      name: "",
+      surname: "",
+      email: "",
+      nickname: "",
+      password: "",
+    });
     setOpenForm(true);
   };
 
@@ -117,7 +133,7 @@ const RolePage = ({ setFeedback }) => {
         handleConfirm={handleConfirm}
       />
       {!!choseItem && (
-        <RoleForm
+        <PlayerForm
           setChoseItem={setChoseItem}
           item={choseItem}
           getList={getList}
@@ -146,4 +162,4 @@ const RolePage = ({ setFeedback }) => {
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 
-export default connect(null, mapActionsToProps)(RolePage);
+export default connect(null, mapActionsToProps)(PlayersPage);

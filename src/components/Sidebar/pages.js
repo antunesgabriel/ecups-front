@@ -32,8 +32,8 @@ const ADMIN = [
     icon: <GamepadIcon />,
   },
   {
-    title: "Usuários",
-    href: "/admin/users",
+    title: "Players",
+    href: "/admin/players",
     icon: <PeopleIcon />,
   },
   {

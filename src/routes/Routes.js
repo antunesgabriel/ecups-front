@@ -16,6 +16,7 @@ import Account from "~/pages/Account/Account.page";
 import GamePage from "~/pages/Admin/Game/Game.page";
 import RolePage from "~/pages/Admin/Role/Role.page";
 import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
+import PlayersPage from "~/pages/Admin/Players/Players.page";
 
 const Routes = () => (
   <Switch>
@@ -35,6 +36,7 @@ const Routes = () => (
       isPrivate
       component={LeagueTypePage}
     />
+    <RouteAdmin exact path="/admin/players" isPrivate component={PlayersPage} />
 
     {/* PLAYER ROUTES */}
     <RoutePlayer exact path="/player/signin" component={SignInPlayer} />

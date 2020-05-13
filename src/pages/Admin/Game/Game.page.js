@@ -133,7 +133,7 @@ const GamePage = ({ setFeedback }) => {
         items={games}
         cols={cols}
         keys={keys}
-        id="gameId"
+        id={ID}
         handlePageChange={handlePageChange}
         handleRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPage={rowsPerPage}

@@ -69,7 +69,7 @@ const LeagueTypePage = ({ setFeedback }) => {
   };
 
   const handleClickNewItem = () => {
-    setChoseItem({ game: "", logo: "" });
+    setChoseItem({ type: "" });
     setOpenForm(true);
   };
 
@@ -131,7 +131,7 @@ const LeagueTypePage = ({ setFeedback }) => {
         items={leagueTypes}
         cols={cols}
         keys={keys}
-        id="leagueTypeId"
+        id={ID}
         handlePageChange={handlePageChange}
         handleRowsPerPageChange={handleRowsPerPageChange}
         rowsPerPage={rowsPerPage}

@@ -21,7 +21,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { APIURL } from "~/services/api";
 
 import { useStyles } from "./dinamicTable.styles";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 const DinamicTable = ({
   className,
@@ -49,7 +49,9 @@ const DinamicTable = ({
     ),
     text: (text, item, key) => <TableCell key={key}>{text}</TableCell>,
     date: (date, item, key) => (
-      <TableCell key={key}>{format(date, "dd/MM/YYYY HH:mm:ss")}</TableCell>
+      <TableCell key={key}>
+        {format(parseISO(date), "dd/MM/yyyy HH:mm:ss")}
+      </TableCell>
     ),
   };
 
