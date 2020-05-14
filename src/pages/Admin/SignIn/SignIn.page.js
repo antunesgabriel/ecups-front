@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -23,6 +23,8 @@ function SignInPage({ signIn, loading, setFeedback }) {
     has: false,
     field: null,
   });
+
+  const location = useLocation();
 
   const handleChangeEmail = (e) => setEmail(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
@@ -57,7 +59,8 @@ function SignInPage({ signIn, loading, setFeedback }) {
   };
 
   const loginAdmin = () => {
-    signIn(email, password, "admin");
+    const { from } = location.state || { from: { pathname: "/admin/home" } };
+    signIn(email, password, from.pathname);
   };
 
   const classes = useStyles();

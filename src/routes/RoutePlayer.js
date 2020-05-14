@@ -15,6 +15,7 @@ function RoutePlayer({
   signOut,
   clearUser,
   setFeedback,
+  location,
   ...rest
 }) {
   const { signed } = store.getState().auth;
@@ -32,7 +33,14 @@ function RoutePlayer({
   }
 
   if (!signed && isPrivate) {
-    return <Redirect to="/player/signin" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/player/signin",
+          state: { from: location },
+        }}
+      />
+    );
   }
 
   if (signed && !isPrivate && role && role.role === PLAYER) {

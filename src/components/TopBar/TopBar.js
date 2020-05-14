@@ -42,7 +42,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
           <img alt="Logo" src="/img/logoLargue.png" className={classes.logo} />
         </RouterLink>
         <div className={classes.flexGrow} />
-        <Hidden mdDown>
+        <>
           <IconButton className={classes.icon}>
             <Badge
               badgeContent={notifications.length}
@@ -80,7 +80,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
               </MenuItem>
             </Menu>
           </>
-        </Hidden>
+        </>
         <Hidden lgUp>
           <IconButton className={classes.icon} onClick={onSidebarOpen}>
             <MenuIcon />

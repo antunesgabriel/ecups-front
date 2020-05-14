@@ -7,14 +7,21 @@ export const LeaguesItem = ({ leagues, classes }) => {
   return (
     <>
       {leagues.map((league) => (
-        <Grid item xs={6} md={4} sm={6} className={classes.imgContainer}>
+        <Grid
+          item
+          xs={6}
+          md={4}
+          sm={6}
+          className={classes.imgContainer}
+          key={league.leagueId}
+        >
           <img
             className={classes.img}
             src={`${APIURL}/files/${league.thumb || league.game.logo}`}
             alt=""
           />
           <article className={classes.imgTitleContainer}>
-            <Typography variant="h6" classesName={classes.imgTitle}>
+            <Typography variant="h6" className={classes.imgTitle}>
               {league.league}
             </Typography>
             <Typography variant="caption" className={classes.caption}>

@@ -4,7 +4,7 @@ import api from "~/services/api";
 
 // Actions e Types
 const { Types, Creators: AuthActions } = createActions({
-  signIn: ["email", "password", "prefix"],
+  signIn: ["email", "password", "pathname"],
   signInSuccess: ["token"],
   signInFailure: null,
   signOut: null,

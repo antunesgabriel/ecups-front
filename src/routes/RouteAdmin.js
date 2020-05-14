@@ -15,11 +15,11 @@ function RouteAdmin({
   signOut,
   clearUser,
   setFeedback,
+  location,
   ...rest
 }) {
   const { signed } = store.getState().auth;
   const { role } = store.getState().user.user;
-
   if (signed && (!role || role.role !== ADMIN)) {
     setFeedback(
       "warning",
@@ -32,7 +32,14 @@ function RouteAdmin({
   }
 
   if (!signed && isPrivate) {
-    return <Redirect to="/admin/signin" />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/admin/signin",
+          state: { from: location },
+        }}
+      />
+    );
   }
 
   if (signed && !isPrivate && role && role.role === ADMIN) {

@@ -10,6 +10,7 @@ import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import history from "~/utils/history";
 
 import { useStyles } from "./logout.style";
+import api from "~/services/api";
 
 function LogoutPage({ signOut, clearUser, setFeedback }) {
   useEffect(() => {
@@ -23,6 +24,7 @@ function LogoutPage({ signOut, clearUser, setFeedback }) {
   const logout = async () => {
     clearUser();
     signOut();
+    api.defaults.headers.Authorization = "";
     setFeedback("info", "Sessão finalizada, faça login novamente");
     history.push("/");
   };

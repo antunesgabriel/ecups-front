@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   imgTitle: {
     color: theme.palette.primary.light,
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(0.4),
   },
   caption: {
     marginBottom: theme.spacing(1),
