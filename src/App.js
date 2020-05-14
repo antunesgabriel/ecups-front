@@ -5,6 +5,10 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "@material-ui/styles";
 import { Router } from "react-router-dom";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import ptLocale from "date-fns/locale/pt-BR";
+import DateFnsUtils from "@date-io/date-fns";
+
 import Feedback from "~/components/Feedback";
 
 import history from "~/utils/history";
@@ -15,15 +19,17 @@ import theme from "./theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <CssBaseline />
-        <PersistGate persistor={persistor}>
-          <Router history={history}>
-            <Feedback />
-            <Routes />
-          </Router>
-        </PersistGate>
-      </Provider>
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptLocale}>
+        <Provider store={store}>
+          <CssBaseline />
+          <PersistGate persistor={persistor}>
+            <Router history={history}>
+              <Feedback />
+              <Routes />
+            </Router>
+          </PersistGate>
+        </Provider>
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   );
 }

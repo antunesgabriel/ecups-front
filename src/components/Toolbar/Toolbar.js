@@ -13,8 +13,8 @@ const Toolbar = ({ className, handleClickNewItem, ...rest }) => {
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
         <span className={classes.spacer} />
-        <Button className={classes.importButton}>Importar</Button>
-        <Button className={classes.exportButton}>Exportar</Button>
+        {/* <Button className={classes.importButton}>Importar</Button>
+        <Button className={classes.exportButton}>Exportar</Button> */}
         <Button
           color="primary"
           variant="contained"

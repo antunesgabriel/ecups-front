@@ -7,7 +7,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Avatar,
   Table,
   TableBody,
   TableCell,
@@ -15,13 +14,14 @@ import {
   TableRow,
   TablePagination,
   Typography,
+  capitalize,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import { APIURL } from "~/services/api";
+import { resolveObjectPath } from "~/helpers/resolveObjectPath";
 
 import { useStyles } from "./dinamicTable.styles";
-import { format, parseISO } from "date-fns";
+import { cellTypes } from "./cellTypes";
 
 const DinamicTable = ({
   className,
@@ -38,22 +38,6 @@ const DinamicTable = ({
   ...rest
 }) => {
   const classes = useStyles();
-
-  const types = {
-    img: (src, item, key) => (
-      <TableCell key={key}>
-        <div className={classes.nameContainer} key={key}>
-          <Avatar className={classes.avatar} src={`${APIURL}/files/${src}`} />
-        </div>
-      </TableCell>
-    ),
-    text: (text, item, key) => <TableCell key={key}>{text}</TableCell>,
-    date: (date, item, key) => (
-      <TableCell key={key}>
-        {format(parseISO(date), "dd/MM/yyyy HH:mm:ss")}
-      </TableCell>
-    ),
-  };
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -76,10 +60,11 @@ const DinamicTable = ({
                     {items.slice(0, rowsPerPage).map((item) => (
                       <TableRow hover key={item[id]}>
                         {keys.map((key) =>
-                          types[key.type](
-                            item[key.key],
+                          cellTypes[capitalize(key.type)](
+                            resolveObjectPath(item, key.key),
                             item,
-                            `td-${item[id]}-${key.key}`
+                            `td-${item[id]}-${key.key}`,
+                            classes
                           )
                         )}
                         <TableCell padding="checkbox">

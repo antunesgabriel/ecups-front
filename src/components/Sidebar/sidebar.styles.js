@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: 240,
+    width: 200,
     height: "100%",
     borderRight: "none",
   },

@@ -8,6 +8,16 @@ export const useStyles = makeStyles((theme) => ({
   inner: {
     minWidth: 1050,
   },
+  actions: {
+    justifyContent: "flex-end",
+  },
+  tableRow: {
+    padding: theme.spacing(2),
+  },
+  tableEmpty: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+  },
   nameContainer: {
     display: "flex",
     alignItems: "center",
@@ -19,14 +29,7 @@ export const useStyles = makeStyles((theme) => ({
       height: theme.spacing(4),
     },
   },
-  actions: {
-    justifyContent: "flex-end",
-  },
-  tableRow: {
-    padding: theme.spacing(2),
-  },
-  tableEmpty: {
-    padding: theme.spacing(2),
-    textAlign: "center",
+  on: {
+    color: theme.palette.success.main,
   },
 }));

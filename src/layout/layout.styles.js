@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   shiftContent: {
-    paddingLeft: 240,
+    paddingLeft: 200,
   },
   content: {
     minHeight: "calc(100% - 64px)",

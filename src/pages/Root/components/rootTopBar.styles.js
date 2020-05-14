@@ -2,12 +2,8 @@ import { makeStyles } from "@material-ui/styles";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    boxShadow: "none",
-    width: "calc(100% - 200px)",
+    width: "100%",
     backgroundColor: theme.palette.background.main,
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-    },
   },
   flexGrow: {
     flexGrow: 1,
