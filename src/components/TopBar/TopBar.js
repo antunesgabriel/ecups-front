@@ -2,19 +2,38 @@ import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 
-import { AppBar, Toolbar, Badge, Hidden, IconButton } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Badge,
+  Hidden,
+  IconButton,
+  Tooltip,
+  Menu,
+  MenuItem,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import { useStyles } from "./topBar.styles";
 import { connect } from "react-redux";
-import history from "~/utils/history";
 
-const TopBar = ({ onSidebarOpen }) => {
+const TopBar = ({ onSidebarOpen, user }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [notifications] = useState([]);
+
+  const { role } = user;
+
   const classes = useStyles();
 
-  const [notifications] = useState([]);
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <AppBar className={clsx(classes.root)}>
@@ -33,12 +52,34 @@ const TopBar = ({ onSidebarOpen }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton
-            className={classes.signOutButton}
-            onClick={() => history.push("/logout")}
-          >
-            <ExitToAppIcon />
-          </IconButton>
+          <>
+            <IconButton
+              className={classes.icon}
+              onClick={handleClick}
+              arial-controls="menu"
+            >
+              <Tooltip title="Opções">
+                <MoreVertIcon />
+              </Tooltip>
+            </IconButton>
+            <Menu
+              id="menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={!!anchorEl}
+              onClose={handleClose}
+            >
+              <MenuItem
+                component={RouterLink}
+                to={`/${role.role.toLowerCase()}/account`}
+              >
+                Perfil
+              </MenuItem>
+              <MenuItem component={RouterLink} to="/logout">
+                Sair
+              </MenuItem>
+            </Menu>
+          </>
         </Hidden>
         <Hidden lgUp>
           <IconButton className={classes.icon} onClick={onSidebarOpen}>

@@ -40,6 +40,7 @@ const Layout = ({ children }) => {
         open={shouldOpenSidebar}
         variant={isDesktop ? "persistent" : "temporary"}
       />
+
       <main className={classes.content}>{children}</main>
       <Footer />
     </div>

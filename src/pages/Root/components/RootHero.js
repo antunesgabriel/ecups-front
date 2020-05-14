@@ -1,6 +1,8 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const styles = (theme) => ({
   hero: {
@@ -10,7 +12,7 @@ const styles = (theme) => ({
     width: "100%",
     marginTop: theme.spacing(8),
     backgroundImage:
-      "linear-gradient(to right bottom, rgba(38,41,54,0.8), rgba(38,41,54,0.9)), url(/img/bg-root.jpg)",
+      "linear-gradient(to top, rgba(38,41,54,0.9), rgba(38,41,54,0.7)), url(/img/bg-root.png)",
     backgroundColor: theme.palette.secondary.main,
     backgroundPosition: "center",
     display: "flex",
@@ -22,7 +24,10 @@ const styles = (theme) => ({
     maxWidth: 400,
   },
   button: {
-    minWidth: 200,
+    minWidth: 150,
+  },
+  h1: {
+    color: theme.palette.primary.light,
   },
   h5: {
     marginBottom: theme.spacing(3),
@@ -30,20 +35,29 @@ const styles = (theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginTop: theme.spacing(3),
     },
+    color: theme.palette.grey[500],
   },
   more: {
     marginTop: theme.spacing(2),
   },
+  buttons: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
 });
 
-function RootHero(props) {
-  const { classes } = props;
-
+function RootHero({ classes, signed }) {
   return (
     <header className={classes.hero}>
       <div className={classes.center}>
-        <Typography color="inherit" align="center" variant="h1" marked="center">
-          Seja um Pro-Player!!
+        <Typography
+          color="inherit"
+          align="center"
+          variant="h1"
+          marked="center"
+          className={classes.h1}
+        >
+          Seja um Pro-Player!
         </Typography>
         <Typography
           color="inherit"
@@ -51,25 +65,40 @@ function RootHero(props) {
           variant="h5"
           className={classes.h5}
         >
-          Enjoy secret offers up to -70% off the best luxury hotels every
-          Sunday.
+          Crie, gerencie e participe de campeonatos com eCups. A sua porta de
+          entrada no mundo do e-sport =D
         </Typography>
-        <Button
-          color="primary"
-          variant="outlined"
-          size="large"
-          className={classes.button}
-          component="a"
-          href="#"
-        >
-          Criar Conta
-        </Button>
-        <Typography variant="body2" color="inherit" className={classes.more}>
-          Discover the experience
-        </Typography>
+        {!signed && (
+          <div className={classes.buttons}>
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              className={classes.button}
+              to="/player/signup"
+              component={Link}
+            >
+              Criar Conta
+            </Button>
+            <Button
+              color="primary"
+              variant="outlined"
+              size="large"
+              className={classes.button}
+              to="/player/signin"
+              component={Link}
+            >
+              Fazer login
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );
 }
 
-export default withStyles(styles)(RootHero);
+const mapStateToProps = (state) => ({
+  signed: state.auth.signed,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(RootHero));
