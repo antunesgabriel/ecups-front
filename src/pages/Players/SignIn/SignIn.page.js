@@ -59,7 +59,7 @@ function SignInPage({ signIn, loading, setFeedback }) {
   };
 
   const loginPlayer = () => {
-    const { from } = location.state || { from: { pathname: "/admin/home" } };
+    const { from } = location.state || { from: { pathname: "/player/home" } };
     signIn(email, password, from.pathname);
   };
 

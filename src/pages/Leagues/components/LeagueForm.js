@@ -32,7 +32,7 @@ const LeagueForm = ({
     roundTrip: item ? item.roundTrip : undefined,
     forTeams: item ? item.forTeams : undefined,
     maxPlayers: item ? item.maxPlayers : undefined,
-    maxTeams: item ? item.maxTeams : undefined,
+    maxTeams: item ? item.maxTeams : null,
     leagueStart:
       item && item.leagueStart
         ? item.leagueStart
@@ -54,12 +54,20 @@ const LeagueForm = ({
   const handleChange = (e) => {
     setValues({
       ...values,
-      [e.target.name]: Number(e.target.value)
+      [e.target.name]: Number.isInteger(e.target.value)
         ? +e.target.value
         : e.target.value,
     });
   };
 
+  const handleChangeNumber = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: Number.isInteger(e.target.value)
+        ? +e.target.value
+        : null,
+    });
+  };
   const handleChangeSelect = (e) => {
     setValues({
       ...values,
@@ -69,6 +77,20 @@ const LeagueForm = ({
 
   const handleChecked = (e) => {
     setValues({ ...values, [e.target.name]: e.target.checked });
+  };
+
+  const handleCheckedTeam = (e) => {
+    if (e.target.name === "forTeams" && e.target.checked) {
+      setValues({ ...values, [e.target.name]: e.target.checked, maxTeams: 2 });
+    }
+
+    if (e.target.name === "forTeams" && !e.target.checked) {
+      setValues({
+        ...values,
+        [e.target.name]: e.target.checked,
+        maxTeams: null,
+      });
+    }
   };
 
   const handleDate = (key, date) => {
@@ -192,12 +214,12 @@ const LeagueForm = ({
             control={
               <Switch
                 checked={values.forTeams}
-                onChange={handleChecked}
+                onChange={handleCheckedTeam}
                 name="forTeams"
                 color="primary"
               />
             }
-            label="Somente ara times"
+            label="Somente para times"
           />
         </FormGroup>
       </FormControl>
@@ -214,7 +236,7 @@ const LeagueForm = ({
         margin="dense"
         name="maxPlayers"
         type="number"
-        onChange={handleChange}
+        onChange={handleChangeNumber}
         required
         value={values.maxPlayers}
         variant="outlined"
@@ -227,7 +249,7 @@ const LeagueForm = ({
           helperText="Quant. maxima de times na liga/campeonato"
           margin="dense"
           name="maxTeams"
-          onChange={handleChange}
+          onChange={handleChangeNumber}
           type="number"
           required
           value={values.maxTeams}

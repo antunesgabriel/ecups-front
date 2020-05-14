@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
-
 import {
   AppBar,
   Toolbar,
@@ -15,7 +14,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-
+import AppsIcon from "@material-ui/icons/Apps";
 import { useStyles } from "./topBar.styles";
 import { connect } from "react-redux";
 
@@ -43,6 +42,11 @@ const TopBar = ({ onSidebarOpen, user }) => {
         </RouterLink>
         <div className={classes.flexGrow} />
         <>
+          <Tooltip title="Voltar para pagina ligas disponíveis">
+            <IconButton className={classes.icon} component={RouterLink} to="/">
+              <AppsIcon />
+            </IconButton>
+          </Tooltip>
           <IconButton className={classes.icon}>
             <Badge
               badgeContent={notifications.length}
@@ -71,7 +75,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
             >
               <MenuItem
                 component={RouterLink}
-                to={`/${role.role.toLowerCase()}/account`}
+                to={`/${role.role.toLowerCase()}/perfil`}
               >
                 Perfil
               </MenuItem>

@@ -4,6 +4,7 @@ import { Avatar, TableCell, Tooltip } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { APIURL } from "~/services/api";
 
@@ -39,7 +40,15 @@ const YesOrNo = (value, item, key, classes) => (
 
 const NumberOrInfinite = (number, item, key) => (
   <TableCell key={key} align="center">
-    {!!number ? number : <AllInclusiveIcon color="inherit" size={14} />}
+    {Number.isInteger(number) ? (
+      number > 0 ? (
+        number
+      ) : (
+        <AllInclusiveIcon color="inherit" size={14} />
+      )
+    ) : (
+      <CloseIcon color="inherit" size={14} />
+    )}
   </TableCell>
 );
 

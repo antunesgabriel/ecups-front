@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import clsx from "clsx";
-
+import { bindActionCreators } from "redux";
 import {
   Card,
   CardActions,
@@ -11,15 +11,15 @@ import {
   Button,
   LinearProgress,
 } from "@material-ui/core";
-
-import { useStyles } from "./accountProfile.styles";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+
 import UserActions from "~/redux/ducks/userDuck";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import api, { APIURL } from "~/services/api";
 
-const AccountProfile = ({
+import { useStyles } from "./perfilProfile.styles";
+
+const PerfilProfile = ({
   user,
   className,
   setFeedback,
@@ -127,4 +127,4 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) =>
   bindActionCreators({ ...UserActions, ...FeedbackActions }, dispatch);
 
-export default connect(mapStateToProps, mapActionsToProps)(AccountProfile);
+export default connect(mapStateToProps, mapActionsToProps)(PerfilProfile);

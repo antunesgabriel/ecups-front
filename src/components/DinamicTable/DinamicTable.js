@@ -35,6 +35,7 @@ const DinamicTable = ({
   handleDeleteItem,
   handleEditItem,
   page,
+  message,
   ...rest
 }) => {
   const classes = useStyles();
@@ -94,7 +95,11 @@ const DinamicTable = ({
         {!items.length && (
           <div className={classes.tableEmpty}>
             <Typography variant="caption">
-              Clique em <b>novo</b> para adcionar um item
+              {message || (
+                <>
+                  Clique em <b>novo</b> para adcionar um item
+                </>
+              )}
             </Typography>
           </div>
         )}

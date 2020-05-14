@@ -94,7 +94,7 @@ const PlayersPage = ({ setFeedback }) => {
       description: "",
       roundTrip: false,
       maxPlayers: 1,
-      maxTeams: 1,
+      maxTeams: null,
       forTeams: false,
       leagueStart: "",
       leagueEnd: "",
@@ -207,6 +207,7 @@ const PlayersPage = ({ setFeedback }) => {
         page={page}
         handleDeleteItem={handleDeleteItem}
         handleEditItem={handleEditItem}
+        message="Clique em NOVO para criar uma nova liga/campeonato"
       />
     </Layout>
   );

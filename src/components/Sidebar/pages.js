@@ -9,16 +9,17 @@ import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
 import GamepadIcon from "@material-ui/icons/Gamepad";
 import PersonIcon from "@material-ui/icons/Person";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 const ADMIN = [
   {
-    title: "Home",
+    title: "Inicio",
     href: "/admin/home",
     icon: <HomeIcon />,
   },
   {
     title: "Perfil",
-    href: "/admin/account",
+    href: "/admin/perfil",
     icon: <PersonIcon />,
   },
   {
@@ -50,24 +51,24 @@ const ADMIN = [
 
 const PLAYER = [
   {
-    title: "Home",
+    title: "Inicio",
     href: "/player/home",
     icon: <HomeIcon />,
   },
   {
-    title: "Usuários",
-    href: "/player/users",
-    icon: <PeopleIcon />,
-  },
-  {
-    title: "Conta",
-    href: "/player/account",
+    title: "Perfil",
+    href: "/player/perfil",
     icon: <AccountBoxIcon />,
   },
   {
-    title: "Configurações",
-    href: "/player/settings",
-    icon: <SettingsIcon />,
+    title: "Inscrições",
+    href: "/player/subscriptions",
+    icon: <AssignmentIcon />,
+  },
+  {
+    title: "Minhas Ligas",
+    href: "/player/leagues",
+    icon: <GamepadIcon />,
   },
 ];
 

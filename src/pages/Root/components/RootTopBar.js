@@ -81,7 +81,7 @@ const RootTopBar = ({ signed, user }) => {
                 </MenuItem>
                 <MenuItem
                   component={RouterLink}
-                  to={`/${role.role.toLowerCase()}/account`}
+                  to={`/${role.role.toLowerCase()}/perfil`}
                 >
                   Perfil
                 </MenuItem>

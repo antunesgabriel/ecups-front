@@ -12,12 +12,13 @@ import { SignUpAdmin } from "~/pages/Admin/SignUp/SignUp.page";
 import { SignInPlayer } from "~/pages/Players/SignIn/SignIn.page";
 import { SignUpPlayer } from "~/pages/Players/SignUp/SignUp.page";
 import { AdminHome } from "~/pages/Admin/Home/AdminHome.page";
-import Account from "~/pages/Account/Account.page";
+import Perfil from "~/pages/Perfil/Perfil.page";
 import GamePage from "~/pages/Admin/Game/Game.page";
 import RolePage from "~/pages/Admin/Role/Role.page";
 import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
 import PlayersPage from "~/pages/Admin/Players/Players.page";
 import LeaguesPage from "~/pages/Leagues/Leagues.page";
+import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
 
 const Routes = () => (
   <Switch>
@@ -28,7 +29,7 @@ const Routes = () => (
     <RouteAdmin exact path="/admin/signin" component={SignInAdmin} />
     <RouteAdmin exact path="/admin/signup" component={SignUpAdmin} />
     <RouteAdmin exact path="/admin/home" isPrivate component={AdminHome} />
-    <RouteAdmin exact path="/admin/account" isPrivate component={Account} />
+    <RouteAdmin exact path="/admin/perfil" isPrivate component={Perfil} />
     <RouteAdmin exact path="/admin/games" isPrivate component={GamePage} />
     <RouteAdmin exact path="/admin/roles" isPrivate component={RolePage} />
     <RouteAdmin
@@ -47,7 +48,20 @@ const Routes = () => (
       exact
       path="/player/home"
       isPrivate
-      component={() => <h1>dashboard player</h1>}
+      component={PlayerHomePage}
+    />
+    <RoutePlayer exact path="/player/perfil" isPrivate component={Perfil} />
+    <RoutePlayer
+      exact
+      path="/player/leagues"
+      isPrivate
+      component={LeaguesPage}
+    />
+    <RoutePlayer
+      exact
+      path="/player/subscription/league/:leagueId"
+      isPrivate
+      component={() => <h1>inscricao</h1>}
     />
   </Switch>
 );

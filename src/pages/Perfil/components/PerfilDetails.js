@@ -16,9 +16,9 @@ import { bindActionCreators } from "redux";
 import UserActions from "~/redux/ducks/userDuck";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 
-import { formSchema } from "./account.form";
+import { formSchema } from "./perfil.form";
 
-const AccountDetails = ({ className, user, updateUser, loading, ...rest }) => {
+const PerfilDetails = ({ className, user, updateUser, loading, ...rest }) => {
   const [values, setValues] = useState({
     name: user.name,
     surname: user.surname,
@@ -172,4 +172,4 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) =>
   bindActionCreators({ ...UserActions, ...FeedbackActions }, dispatch);
 
-export default connect(mapStateToProps, mapActionsToProps)(AccountDetails);
+export default connect(mapStateToProps, mapActionsToProps)(PerfilDetails);
