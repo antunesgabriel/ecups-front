@@ -77,6 +77,7 @@ const PlayerHomePage = ({ setFeedback }) => {
     </Layout>
   );
 };
+
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 export default connect(null, mapActionsToProps)(PlayerHomePage);

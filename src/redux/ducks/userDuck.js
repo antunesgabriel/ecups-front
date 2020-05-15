@@ -7,6 +7,7 @@ const { Types, Creators: UserActions } = createActions({
   setUserAvatar: ["filename"],
   updateUser: ["userData", "userId"],
   userFailure: null,
+  setUserTeam: ["team"],
 });
 
 /* Types:
@@ -29,6 +30,7 @@ const INITIAL_STATE = Immutable({
     address: null,
     role: null,
     userId: null,
+    team: null,
   },
   loading: false,
 });
@@ -56,6 +58,10 @@ const HANDLERS = {
   [UserTypes.UPDATE_USER]: (state) => Immutable(state).merge({ loading: true }),
   [UserTypes.USER_FAILURE]: (state) =>
     Immutable(state).merge({ loading: false }),
+  [UserTypes.SET_USER_TEAM]: (state, { team }) => {
+    console.log(team);
+    return Immutable(state).merge({ user: { ...state.user, team } });
+  },
 };
 
 export const userReducer = createReducer(INITIAL_STATE, HANDLERS);

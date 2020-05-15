@@ -19,6 +19,7 @@ import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
 import PlayersPage from "~/pages/Admin/Players/Players.page";
 import LeaguesPage from "~/pages/Leagues/Leagues.page";
 import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
+import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
 
 const Routes = () => (
   <Switch>
@@ -56,6 +57,12 @@ const Routes = () => (
       path="/player/leagues"
       isPrivate
       component={LeaguesPage}
+    />
+    <RoutePlayer
+      exact
+      path="/player/team"
+      isPrivate
+      component={PlayerTeamPage}
     />
     <RoutePlayer
       exact

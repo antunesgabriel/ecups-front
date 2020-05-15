@@ -63,9 +63,7 @@ const LeagueForm = ({
   const handleChangeNumber = (e) => {
     setValues({
       ...values,
-      [e.target.name]: Number.isInteger(e.target.value)
-        ? +e.target.value
-        : null,
+      [e.target.name]: Number(e.target.value),
     });
   };
   const handleChangeSelect = (e) => {
@@ -104,10 +102,22 @@ const LeagueForm = ({
     save(item, values);
   };
 
+  const validateNumber = (e) => {
+    var key = window.e ? e.keyCode : e.which;
+    if (e.keyCode === 8 || e.keyCode === 46) {
+      return true;
+    } else if (key < 48 || key > 57) {
+      e.preventDefault();
+    } else {
+      return true;
+    }
+  };
+
   const save = async (edit, itemData) => {
     try {
       setLoading(true);
       if (edit[ID]) {
+        console.log(itemData);
         const { data } = await api.put(`${END_POINT}/${item[ID]}`, itemData);
         setFeedback("success", data.message);
       }
@@ -238,6 +248,7 @@ const LeagueForm = ({
         type="number"
         onChange={handleChangeNumber}
         required
+        onKeyPress={validateNumber}
         value={values.maxPlayers}
         variant="outlined"
       />
@@ -250,6 +261,7 @@ const LeagueForm = ({
           margin="dense"
           name="maxTeams"
           onChange={handleChangeNumber}
+          onKeyPress={validateNumber}
           type="number"
           required
           value={values.maxTeams}

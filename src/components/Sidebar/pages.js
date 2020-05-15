@@ -4,7 +4,7 @@ import LoyaltyIcon from "@material-ui/icons/Loyalty";
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import SettingsIcon from "@material-ui/icons/Settings";
+import SecurityIcon from "@material-ui/icons/Security";
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
 import GamepadIcon from "@material-ui/icons/Gamepad";
@@ -54,6 +54,11 @@ const PLAYER = [
     title: "Inicio",
     href: "/player/home",
     icon: <HomeIcon />,
+  },
+  {
+    title: "Time",
+    href: "/player/team",
+    icon: <SecurityIcon />,
   },
   {
     title: "Perfil",
