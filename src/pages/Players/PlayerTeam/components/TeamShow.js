@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import {
   Grid,
@@ -9,7 +9,6 @@ import {
   Avatar,
   CardActions,
   Button,
-  makeStyles,
   Container,
   Table,
   TableBody,
@@ -24,11 +23,18 @@ import {
   DialogTitle,
   TextField,
   InputAdornment,
+  CircularProgress,
 } from "@material-ui/core";
+import { bindActionCreators } from "redux";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import { connect } from "react-redux";
 
+import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import api, { APIURL } from "~/services/api";
+
+import { useStyles } from "./team-show.styles";
+import { MembersSkeleton } from "./MembersSkeleton";
 
 function getPreview(src) {
   if (!src) {
@@ -41,55 +47,41 @@ function getPreview(src) {
   return URL.createObjectURL(src);
 }
 
-export const useStyles = makeStyles((theme) => ({
-  root: {},
-  details: {
-    display: "flex",
-  },
-  shield: {
-    marginLeft: "auto",
-    height: 110,
-    width: 100,
-    flexShrink: 0,
-    flexGrow: 0,
-  },
-  uploadButton: {
-    marginRight: theme.spacing(2),
-  },
-  file: {
-    display: "none",
-  },
-  danger: {
-    backgroundColor: theme.palette.error.main,
-    "&:hover": {
-      backgroundColor: theme.palette.error.dark,
-    },
-    color: theme.palette.primary.light,
-  },
-  info: {
-    backgroundColor: theme.palette.info.main,
-    "&:hover": {
-      backgroundColor: theme.palette.info.dark,
-    },
-    color: theme.palette.primary.light,
-  },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-}));
-
-export function TeamShow({ team, className, setFeedback }) {
-  const [nickname, setNickname] = useState(null);
+function TeamShow({ team, className, setFeedback }) {
+  const [nickname, setNickname] = useState("");
+  const [members, setMembers] = useState([]);
+  const [boss, setBoss] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingMembers, setLoadingMembers] = useState(true);
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
+
+  useEffect(() => {
+    (async function () {
+      const { members, boss } = await getMembers();
+      setBoss(boss);
+      setMembers(members);
+      setLoadingMembers(false);
+    })();
+  });
+
+  const getMembers = async () => {
+    try {
+      const { data } = await api.get("/team/show");
+      if (!data.team) {
+        return { members: [], boos: null };
+      }
+      return data.team;
+    } catch (err) {
+      if (err.response && err.response.statusCode < 500) {
+        setFeedback("error", err.response.message);
+        return { members: [], boos: null };
+      }
+      setFeedback("error", "Falha ao obter dados");
+      return { members: [], boos: null };
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -101,20 +93,26 @@ export function TeamShow({ team, className, setFeedback }) {
 
   const handleClose = () => {
     setOpen(false);
+    setNickname("");
   };
 
   const handleAdd = async () => {
     try {
       setLoading(true);
-      const { data } = await api.post("/team-player", { nickname });
+      const { data } = await api.post(`/invitation/${team.teamId}`, {
+        nickname,
+      });
+      setFeedback("success", data.message);
     } catch (err) {
-      setLoading(false);
       if (err.response && err.response.statusCode < 500) {
         setFeedback("error", err.response.message);
         return;
       }
       setFeedback("error", "Falha ao obter dados");
       return;
+    } finally {
+      setOpen(false);
+      setLoading(false);
     }
   };
 
@@ -154,8 +152,16 @@ export function TeamShow({ team, className, setFeedback }) {
           <Button onClick={handleClose} variant="text">
             Cancelar
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Convidar
+          <Button
+            onClick={handleAdd}
+            color="primary"
+            disabled={loading || !nickname}
+          >
+            {loading ? (
+              <CircularProgress size={18} color="inherit" />
+            ) : (
+              "Convidar"
+            )}
           </Button>
         </DialogActions>
       </Dialog>
@@ -175,13 +181,15 @@ export function TeamShow({ team, className, setFeedback }) {
                   >
                     {team.bio}
                   </Typography>
-                  <Typography
-                    className={classes.locationText}
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    Lider: @{team.boss.nickname}
-                  </Typography>
+                  {boss && (
+                    <Typography
+                      className={classes.locationText}
+                      color="textSecondary"
+                      variant="body1"
+                    >
+                      Lider: @{boss.nickname}
+                    </Typography>
+                  )}
                 </div>
                 <Avatar
                   className={classes.shield}
@@ -197,40 +205,44 @@ export function TeamShow({ team, className, setFeedback }) {
               >
                 Membros:
               </Typography>
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell>Nickname</TableCell>
-                    <TableCell>Email</TableCell>
-                    <TableCell>Remover</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {team.members.map((member) => (
-                    <TableRow key={member.nickname}>
-                      <TableCell align="center">
-                        <Avatar
-                          src={`${APIURL}/files/${member.avatar}`}
-                          alt={member.nickname}
-                          // className={classes.small}
-                        />
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {member.nickname}
-                      </TableCell>
-                      <TableCell>{member.email}</TableCell>
-                      <TableCell>
-                        <IconButton
-                          disabled={team.boss.nickname === member.nickname}
-                        >
-                          <DeleteIcon color="inherit" />
-                        </IconButton>
-                      </TableCell>
+              {loadingMembers ? (
+                <MembersSkeleton />
+              ) : (
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell />
+                      <TableCell>Nickname</TableCell>
+                      <TableCell>Email</TableCell>
+                      <TableCell>Remover</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {members.map((member) => (
+                      <TableRow key={member.nickname}>
+                        <TableCell align="center">
+                          <Avatar
+                            src={`${APIURL}/files/${member.avatar}`}
+                            alt={member.nickname}
+                            // className={classes.small}
+                          />
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          {member.nickname}
+                        </TableCell>
+                        <TableCell>{member.email}</TableCell>
+                        <TableCell>
+                          <IconButton
+                            disabled={boss.nickname === member.nickname}
+                          >
+                            <DeleteIcon color="inherit" />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
             </CardContent>
             <Divider />
             <CardActions>
@@ -255,3 +267,12 @@ export function TeamShow({ team, className, setFeedback }) {
     </Container>
   );
 }
+
+const mapActionsToProps = (dispatch) =>
+  bindActionCreators(FeedbackActions, dispatch);
+
+const mapStateToProps = (state) => ({
+  team: state.user.user.team,
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(TeamShow);

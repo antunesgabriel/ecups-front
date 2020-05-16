@@ -8,6 +8,7 @@ import {
   makeStyles,
   Container,
   LinearProgress,
+  CircularProgress,
 } from "@material-ui/core";
 
 import api, { APIURL } from "~/services/api";
@@ -219,7 +220,11 @@ function TeamCreateSteps({ setFeedback, setUserTeam }) {
                   onClick={handleComfirm}
                   className={classes.button}
                 >
-                  Sim
+                  {loading ? (
+                    <CircularProgress size={18} color="inherit" />
+                  ) : (
+                    "Sim"
+                  )}
                 </Button>
               ) : (
                 <Button

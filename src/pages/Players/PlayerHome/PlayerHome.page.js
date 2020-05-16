@@ -7,15 +7,19 @@ import GroupIcon from "@material-ui/icons/Group";
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 import GamepadIcon from "@material-ui/icons/Gamepad";
 import GradeIcon from "@material-ui/icons/Grade";
-import api from "~/services/api";
+// import api from "~/services/api";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 
 const PlayerHomePage = ({ setFeedback }) => {
-  const [items, setItems] = useState(null);
+  const [items] = useState(null);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    // (async function() {
+    //   await getItems()
+    // })()
+  }, []);
 
   // async function getItems() {
   //   try {
