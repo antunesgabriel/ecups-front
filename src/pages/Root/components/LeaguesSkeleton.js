@@ -8,8 +8,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -18,8 +20,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -27,8 +31,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -36,8 +42,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -45,8 +53,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -54,8 +64,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -63,8 +75,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -72,8 +86,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />
@@ -81,8 +97,10 @@ export function LeaguesSkeleton() {
       <Grid
         item
         xs={12}
-        md={4}
-        sm={6}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={4}
         key={`t-${Math.round(Math.random() * 1000 + 1)}`}
       >
         <Skeleton variant="rect" height={250} width="100%" />

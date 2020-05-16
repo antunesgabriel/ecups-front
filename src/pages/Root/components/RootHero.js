@@ -24,7 +24,12 @@ const styles = (theme) => ({
     maxWidth: 400,
   },
   button: {
-    minWidth: 150,
+    minWidth: 130,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: theme.spacing(1),
+    },
   },
   h1: {
     color: theme.palette.primary.light,
@@ -43,6 +48,9 @@ const styles = (theme) => ({
   buttons: {
     display: "flex",
     justifyContent: "space-between",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
 });
 

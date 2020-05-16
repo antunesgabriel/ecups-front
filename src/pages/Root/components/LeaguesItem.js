@@ -12,7 +12,7 @@ export const LeaguesItem = ({ leagues, classes }) => {
           in={!!leagues.length}
           {...(leagues.length ? { timeout: 1000 } : {})}
         >
-          <Grid item xs={6} md={4} sm={6} className={classes.imgContainer}>
+          <Grid item xs={12} md={4} sm={6} className={classes.imgContainer}>
             <img
               className={classes.img}
               src={`${APIURL}/files/${league.thumb || league.game.logo}`}

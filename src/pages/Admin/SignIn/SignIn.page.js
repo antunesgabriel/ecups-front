@@ -114,7 +114,7 @@ function SignInPage({ signIn, loading, setFeedback }) {
               {loading ? <CircularProgress color="inherit" /> : "Entrar"}
             </Button>
             <Grid container className={classes.formFooter}>
-              <Grid item xs>
+              <Grid item xs={12} md sm>
                 <Link href="#" variant="body2">
                   Esqueceu a senha?
                 </Link>
