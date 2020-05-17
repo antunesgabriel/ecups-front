@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import {
@@ -64,7 +65,7 @@ function TeamShow({ team, className, setFeedback }) {
       setMembers(members);
       setLoadingMembers(false);
     })();
-  });
+  }, []);
 
   const getMembers = async () => {
     try {
@@ -74,8 +75,8 @@ function TeamShow({ team, className, setFeedback }) {
       }
       return data.team;
     } catch (err) {
-      if (err.response && err.response.statusCode < 500) {
-        setFeedback("error", err.response.message);
+      if (err.response && err.response.status < 500) {
+        setFeedback("error", err.response.data.message);
         return { members: [], boos: null };
       }
       setFeedback("error", "Falha ao obter dados");
@@ -99,13 +100,14 @@ function TeamShow({ team, className, setFeedback }) {
   const handleAdd = async () => {
     try {
       setLoading(true);
-      const { data } = await api.post(`/invitation/${team.teamId}`, {
+      const { data } = await api.post("/invitation", {
         nickname,
+        teamId: team.teamId,
       });
       setFeedback("success", data.message);
     } catch (err) {
-      if (err.response && err.response.statusCode < 500) {
-        setFeedback("error", err.response.message);
+      if (err.response && err.response.status < 500) {
+        setFeedback("error", err.response.data.message);
         return;
       }
       setFeedback("error", "Falha ao obter dados");

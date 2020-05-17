@@ -159,8 +159,8 @@ function TeamCreateSteps({ setFeedback, setUserTeam }) {
       setLoading(false);
     } catch (err) {
       handleReset();
-      if (err.response && err.response.statusCode < 500) {
-        setFeedback("error", err.response.message);
+      if (err.response && err.response.status < 500) {
+        setFeedback("error", err.response.data.message);
         return;
       }
       setFeedback("error", "Falha ao obter dados");

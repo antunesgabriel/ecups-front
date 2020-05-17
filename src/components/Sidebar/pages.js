@@ -10,6 +10,7 @@ import VideogameAssetIcon from "@material-ui/icons/VideogameAsset";
 import GamepadIcon from "@material-ui/icons/Gamepad";
 import PersonIcon from "@material-ui/icons/Person";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import EmailIcon from "@material-ui/icons/Email";
 
 const ADMIN = [
   {
@@ -64,6 +65,11 @@ const PLAYER = [
     title: "Perfil",
     href: "/player/perfil",
     icon: <AccountBoxIcon />,
+  },
+  {
+    title: "Convites",
+    href: "/player/invitations",
+    icon: <EmailIcon />,
   },
   {
     title: "Inscrições",

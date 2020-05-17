@@ -45,7 +45,7 @@ const DinamicTable = ({
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
-            <Table>
+            <Table className={classes.table}>
               <TableHead>
                 <TableRow>
                   {cols.map((col) => (

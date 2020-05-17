@@ -37,7 +37,7 @@ const Profile = ({ user, className, ...rest }) => {
         to="/admin/account"
       />
       <Typography className={classes.name} variant="h4">
-        {user.name} {user.surname}
+        {user.name}
       </Typography>
       <Typography variant="body2">Nickname: @{user.nickname}</Typography>
       {user.team && (

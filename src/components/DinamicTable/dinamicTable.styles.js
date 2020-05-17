@@ -11,6 +11,9 @@ export const useStyles = makeStyles((theme) => ({
   actions: {
     justifyContent: "flex-end",
   },
+  table: {
+    minWidth: 750,
+  },
   tableRow: {
     padding: theme.spacing(2),
   },

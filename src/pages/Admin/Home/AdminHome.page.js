@@ -25,7 +25,7 @@ const AdminHomePage = ({ setFeedback }) => {
       const { data } = await api.get("/admin/home");
       setItems({ ...data });
     } catch (err) {
-      if (err.response && err.response.statusCode < 500) {
+      if (err.response && err.response.status < 500) {
         setFeedback("error", err.response.message);
         return;
       }

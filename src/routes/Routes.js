@@ -20,6 +20,7 @@ import PlayersPage from "~/pages/Admin/Players/Players.page";
 import LeaguesPage from "~/pages/Leagues/Leagues.page";
 import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
 import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
+import PlayerInvitationPage from "~/pages/Players/PlayerInvitaion/PlayerInvitation.page";
 
 const Routes = () => (
   <Switch>
@@ -63,6 +64,13 @@ const Routes = () => (
       path="/player/team"
       isPrivate
       component={PlayerTeamPage}
+    />
+
+    <RoutePlayer
+      exact
+      path="/player/invitations"
+      isPrivate
+      component={PlayerInvitationPage}
     />
     <RoutePlayer
       exact
