@@ -76,6 +76,17 @@ const TopBar = ({ onSidebarOpen, user }) => {
 
   const handleCloseNoti = () => {
     setAnchorNoti(null);
+    handleReadNoti();
+  };
+
+  const handleReadNoti = async () => {
+    try {
+      await api.put("/notification");
+      const { notifications } = await getNotifications();
+      setNotifications(notifications);
+    } catch (err) {
+      setNotifications([]);
+    }
   };
 
   return (
@@ -92,11 +103,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
             </IconButton>
           </Tooltip>
           <IconButton className={classes.icon} onClick={handleClickNoti}>
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
+            <Badge badgeContent={notifications.length} color="primary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
@@ -107,13 +114,26 @@ const TopBar = ({ onSidebarOpen, user }) => {
             open={Boolean(anchorNoti)}
             onClose={handleCloseNoti}
           >
-            {notifications.map((noti) => (
-              <MenuItem className={classes.nofitications} key={noti._id}>
-                <Typography variant="caption" color="textPrimary">
-                  {noti.message}
-                </Typography>
+            {notifications.length ? (
+              <>
+                {notifications.map((noti) => (
+                  <MenuItem
+                    className={classes.nofitications}
+                    key={noti._id}
+                    component={RouterLink}
+                    to={noti.link}
+                  >
+                    <Typography variant="caption" color="textPrimary">
+                      {noti.message}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </>
+            ) : (
+              <MenuItem disabled>
+                <Typography variant="body2">Sem notificações</Typography>
               </MenuItem>
-            ))}
+            )}
           </StyledMenu>
           <>
             <IconButton

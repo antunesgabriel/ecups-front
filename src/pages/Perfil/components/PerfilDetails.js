@@ -68,7 +68,7 @@ const PerfilDetails = ({ className, user, updateUser, loading, ...rest }) => {
   };
 
   return (
-    <Card {...rest} className={className}>
+    <Card className={className}>
       <form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <CardHeader
           subheader="Edite suas informações sempre que preciso"

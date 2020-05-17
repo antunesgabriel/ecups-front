@@ -25,4 +25,14 @@ export const useStyles = makeStyles((theme) => ({
   icon: {
     color: theme.palette.icon,
   },
+  inline: {
+    display: "inline",
+    marginRight: theme.spacing(1),
+  },
+  nofitications: {
+    maxWidth: 200,
+    minWidth: 150,
+    whiteSpace: "normal",
+    borderBottom: "1px solid rgba(255,255,255,0.2)",
+  },
 }));

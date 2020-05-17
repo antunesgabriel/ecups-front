@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 import {
@@ -10,19 +10,72 @@ import {
   Avatar,
   Menu,
   MenuItem,
+  withStyles,
+  Typography,
 } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import { connect } from "react-redux";
 
 import { useStyles } from "./rootTopBar.styles";
-import { APIURL } from "~/services/api";
+import api, { APIURL } from "~/services/api";
+
+const StyledMenu = withStyles({})((props) => (
+  <Menu
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
 
 const RootTopBar = ({ signed, user }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [notifications] = useState([]);
+  const [anchorNoti, setAnchorNoti] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const { notifications } = await getNotifications();
+      setNotifications(notifications);
+    })();
+  }, []);
 
   const { role } = user;
   const classes = useStyles();
+
+  const getNotifications = async () => {
+    try {
+      const { data } = await api.get("/notification");
+      return data;
+    } catch (err) {
+      return { notifications: [] };
+    }
+  };
+
+  const handleClickNoti = (e) => {
+    setAnchorNoti(e.currentTarget);
+  };
+
+  const handleCloseNoti = () => {
+    setAnchorNoti(null);
+    handleReadNoti();
+  };
+
+  const handleReadNoti = async () => {
+    try {
+      await api.put("/notification");
+      const { notifications } = await getNotifications();
+      setNotifications(notifications);
+    } catch (err) {
+      setNotifications([]);
+    }
+  };
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -43,16 +96,40 @@ const RootTopBar = ({ signed, user }) => {
         {signed && (
           <>
             <Tooltip title="Notificações">
-              <IconButton className={classes.icon}>
-                <Badge
-                  badgeContent={notifications.length}
-                  color="error"
-                  variant="dot"
-                >
+              <IconButton className={classes.icon} onClick={handleClickNoti}>
+                <Badge badgeContent={notifications.length} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
             </Tooltip>
+            <StyledMenu
+              id="customized-menu"
+              anchorEl={anchorNoti}
+              keepMounted
+              open={Boolean(anchorNoti)}
+              onClose={handleCloseNoti}
+            >
+              {notifications.length ? (
+                <>
+                  {notifications.map((noti) => (
+                    <MenuItem
+                      className={classes.nofitications}
+                      key={noti._id}
+                      component={RouterLink}
+                      to={noti.link}
+                    >
+                      <Typography variant="caption" color="textPrimary">
+                        {noti.message}
+                      </Typography>
+                    </MenuItem>
+                  ))}
+                </>
+              ) : (
+                <MenuItem disabled>
+                  <Typography variant="body2">Sem notificações</Typography>
+                </MenuItem>
+              )}
+            </StyledMenu>
             <>
               <IconButton
                 className={classes.icon}

@@ -65,7 +65,7 @@ const PerfilProfile = ({
   };
 
   return (
-    <Card {...rest} className={clsx(classes.root, className)}>
+    <Card className={clsx(classes.root, className)}>
       <CardContent>
         <div className={classes.details}>
           <div>
