@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import {
@@ -42,56 +41,52 @@ const DinamicTable = ({
 
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      <CardContent className={classes.content}>
-        <PerfectScrollbar>
-          <div className={classes.inner}>
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  {cols.map((col) => (
-                    <TableCell key={col.id}>{col.col}</TableCell>
-                  ))}
-                  <TableCell />
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {!!items.length && (
-                  <>
-                    {items.slice(0, rowsPerPage).map((item) => (
-                      <TableRow hover key={item[id]}>
-                        {keys.map((key) =>
-                          cellTypes[capitalize(key.type)](
-                            resolveObjectPath(item, key.key),
-                            item,
-                            `td-${item[id]}-${key.key}`,
-                            classes
-                          )
-                        )}
-                        <TableCell padding="checkbox">
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => handleEditItem(item)}
-                          >
-                            <EditIcon fontSize="small" />
-                          </IconButton>
-                        </TableCell>
-                        <TableCell padding="checkbox">
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => handleDeleteItem(item)}
-                          >
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </PerfectScrollbar>
+      <CardContent className={classes.scrollX}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              {cols.map((col) => (
+                <TableCell key={col.id}>{col.col}</TableCell>
+              ))}
+              <TableCell />
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {!!items.length && (
+              <>
+                {items.slice(0, rowsPerPage).map((item) => (
+                  <TableRow hover key={item[id]}>
+                    {keys.map((key) =>
+                      cellTypes[capitalize(key.type)](
+                        resolveObjectPath(item, key.key),
+                        item,
+                        `td-${item[id]}-${key.key}`,
+                        classes
+                      )
+                    )}
+                    <TableCell padding="checkbox">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleEditItem(item)}
+                      >
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell padding="checkbox">
+                      <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDeleteItem(item)}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </>
+            )}
+          </TableBody>
+        </Table>
         {!items.length && (
           <div className={classes.tableEmpty}>
             <Typography variant="caption">

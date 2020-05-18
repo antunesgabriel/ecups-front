@@ -33,6 +33,7 @@ function RootPage({ setFeedback }) {
       return setFeedback("error", "Ops! Algo de errado aconteceu ao tentar");
     }
   };
+
   const classes = useStyles();
   return (
     <>

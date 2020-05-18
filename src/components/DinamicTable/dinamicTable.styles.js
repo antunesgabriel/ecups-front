@@ -5,14 +5,16 @@ export const useStyles = makeStyles((theme) => ({
   content: {
     padding: 0,
   },
-  inner: {
-    minWidth: 1050,
-  },
   actions: {
     justifyContent: "flex-end",
   },
   table: {
-    minWidth: 750,
+    minWidth: 1080,
+  },
+  scrollX: {
+    [theme.breakpoints.down("md")]: {
+      overflowX: "scroll",
+    },
   },
   tableRow: {
     padding: theme.spacing(2),

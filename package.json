@@ -17,6 +17,7 @@
     "clsx": "^1.1.0",
     "date-fns": "^2.13.0",
     "history": "^4.10.1",
+    "material-table": "^1.57.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-perfect-scrollbar": "^1.5.8",

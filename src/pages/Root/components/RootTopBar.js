@@ -40,11 +40,13 @@ const RootTopBar = ({ signed, user }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    (async function () {
-      const { notifications } = await getNotifications();
-      setNotifications(notifications);
-    })();
-  }, []);
+    if (signed) {
+      (async function () {
+        const { notifications } = await getNotifications();
+        setNotifications(notifications);
+      })();
+    }
+  }, [signed]);
 
   const { role } = user;
   const classes = useStyles();

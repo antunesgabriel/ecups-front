@@ -21,6 +21,7 @@ import LeaguesPage from "~/pages/Leagues/Leagues.page";
 import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
 import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
 import PlayerInvitationPage from "~/pages/Players/PlayerInvitaion/PlayerInvitation.page";
+import SubscriptionPage from "~/pages/Subscription/Subscription.page";
 
 const Routes = () => (
   <Switch>
@@ -74,9 +75,15 @@ const Routes = () => (
     />
     <RoutePlayer
       exact
-      path="/player/subscription/league/:leagueId"
+      path="/player/subscriptions"
       isPrivate
-      component={() => <h1>inscricao</h1>}
+      component={SubscriptionPage}
+    />
+    <RoutePlayer
+      exact
+      path="/player/subscriptions/:leagueId"
+      isPrivate
+      component={SubscriptionPage}
     />
   </Switch>
 );

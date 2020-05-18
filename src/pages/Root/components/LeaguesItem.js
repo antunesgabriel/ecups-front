@@ -36,9 +36,9 @@ export const LeaguesItem = ({ leagues, classes }) => {
                 variant="contained"
                 className={classes.btn}
                 component={Link}
-                to={`/player/subscription/league/${league.leagueId}`}
+                to={`/player/subscriptions?leagueId=${league.leagueId}`}
               >
-                Participar
+                {league.forTeams ? "Inscrever meu time" : "Inscrever-se"}
               </Button>
             </article>
           </Grid>
