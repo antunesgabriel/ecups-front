@@ -15,6 +15,7 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("md")]: {
       overflowX: "scroll",
     },
+    padding: 0,
   },
   tableRow: {
     padding: theme.spacing(2),

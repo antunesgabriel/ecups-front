@@ -17,4 +17,9 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     flexDirection: "row",
   },
+  separate: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    width: "100%",
+  },
 }));

@@ -8,9 +8,11 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { DateTimePicker } from "@material-ui/pickers";
+import Slider from "@material-ui/core/Slider";
+import { parseISO, addHours, addDays } from "date-fns";
+
 import { CustomModal } from "~/components/CustomModal/CustomModal";
 import api from "~/services/api";
-import { parseISO, addHours, addDays } from "date-fns";
 
 import { useStyles } from "./league-form.styles";
 
@@ -31,8 +33,7 @@ const LeagueForm = ({
     description: item ? item.description : undefined,
     roundTrip: item ? item.roundTrip : undefined,
     forTeams: item ? item.forTeams : undefined,
-    maxPlayers: item ? item.maxPlayers : undefined,
-    maxTeams: item ? item.maxTeams : null,
+    maxParticipants: item ? item.maxParticipants : undefined,
     leagueStart:
       item && item.leagueStart
         ? item.leagueStart
@@ -79,14 +80,13 @@ const LeagueForm = ({
 
   const handleCheckedTeam = (e) => {
     if (e.target.name === "forTeams" && e.target.checked) {
-      setValues({ ...values, [e.target.name]: e.target.checked, maxTeams: 2 });
+      setValues({ ...values, [e.target.name]: e.target.checked });
     }
 
     if (e.target.name === "forTeams" && !e.target.checked) {
       setValues({
         ...values,
         [e.target.name]: e.target.checked,
-        maxTeams: null,
       });
     }
   };
@@ -234,7 +234,7 @@ const LeagueForm = ({
         </FormGroup>
       </FormControl>
 
-      <TextField
+      {/* <TextField
         className={classes.margin}
         fullWidth
         label="Max. Players"
@@ -244,30 +244,31 @@ const LeagueForm = ({
             : "Quant. maxima de players na liga/campeonato"
         }
         margin="dense"
-        name="maxPlayers"
+        name="maxParticipants"
         type="number"
         onChange={handleChangeNumber}
         required
         onKeyPress={validateNumber}
-        value={values.maxPlayers}
+        value={values.maxParticipants}
         variant="outlined"
-      />
-      {values.forTeams && (
-        <TextField
-          className={classes.margin}
-          fullWidth
-          label="Max. Times"
-          helperText="Quant. maxima de times na liga/campeonato"
-          margin="dense"
-          name="maxTeams"
+      /> */}
+      <FormControl component="fieldset" className={classes.control}>
+        <Slider
+          defaultValue={30}
+          getAriaValueText={String(values.maxParticipants)}
+          aria-labelledby="discrete-slider"
+          step={1}
+          marks
+          name="maxParticipants"
+          valueLabelDisplay="on"
           onChange={handleChangeNumber}
-          onKeyPress={validateNumber}
-          type="number"
-          required
-          value={values.maxTeams}
-          variant="outlined"
+          value={values.maxParticipants}
+          min={1}
+          max={1000}
+          color="primary"
         />
-      )}
+      </FormControl>
+
       <FormControl component="fieldset" className={classes.dates}>
         <DateTimePicker
           label="Inicio da Liga/Campeonato"
