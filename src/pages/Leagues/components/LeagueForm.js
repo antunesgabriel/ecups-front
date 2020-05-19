@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from "react";
-import { TextField, FormGroup, FormLabel } from "@material-ui/core";
+import {
+  TextField,
+  FormGroup,
+  FormLabel,
+  Typography,
+  withStyles,
+} from "@material-ui/core";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -15,6 +21,25 @@ import { CustomModal } from "~/components/CustomModal/CustomModal";
 import api from "~/services/api";
 
 import { useStyles } from "./league-form.styles";
+
+const MySlider = withStyles({
+  track: {
+    height: 4,
+    borderRadius: 2,
+  },
+  rail: {
+    height: 4,
+    borderRadius: 2,
+  },
+  mark: {
+    height: 0,
+  },
+  thumb: {
+    height: 15,
+    width: 15,
+    marginTop: -5,
+  },
+})(Slider);
 
 const LeagueForm = ({
   item,
@@ -61,12 +86,6 @@ const LeagueForm = ({
     });
   };
 
-  const handleChangeNumber = (e) => {
-    setValues({
-      ...values,
-      [e.target.name]: Number(e.target.value),
-    });
-  };
   const handleChangeSelect = (e) => {
     setValues({
       ...values,
@@ -102,22 +121,17 @@ const LeagueForm = ({
     save(item, values);
   };
 
-  const validateNumber = (e) => {
-    var key = window.e ? e.keyCode : e.which;
-    if (e.keyCode === 8 || e.keyCode === 46) {
-      return true;
-    } else if (key < 48 || key > 57) {
-      e.preventDefault();
-    } else {
-      return true;
-    }
+  const handleChangeSlider = (event, newValue) => {
+    setValues({
+      ...values,
+      maxParticipants: Number(newValue),
+    });
   };
 
   const save = async (edit, itemData) => {
     try {
       setLoading(true);
       if (edit[ID]) {
-        console.log(itemData);
         const { data } = await api.put(`${END_POINT}/${item[ID]}`, itemData);
         setFeedback("success", data.message);
       }
@@ -227,6 +241,7 @@ const LeagueForm = ({
                 onChange={handleCheckedTeam}
                 name="forTeams"
                 color="primary"
+                disabled={!!item.leagueId}
               />
             }
             label="Somente para times"
@@ -234,38 +249,22 @@ const LeagueForm = ({
         </FormGroup>
       </FormControl>
 
-      {/* <TextField
-        className={classes.margin}
-        fullWidth
-        label="Max. Players"
-        helperText={
-          values.forTeams
-            ? "Quant. maxima de players por time na liga/campeonato"
-            : "Quant. maxima de players na liga/campeonato"
-        }
-        margin="dense"
-        name="maxParticipants"
-        type="number"
-        onChange={handleChangeNumber}
-        required
-        onKeyPress={validateNumber}
-        value={values.maxParticipants}
-        variant="outlined"
-      /> */}
       <FormControl component="fieldset" className={classes.control}>
-        <Slider
-          defaultValue={30}
-          getAriaValueText={String(values.maxParticipants)}
-          aria-labelledby="discrete-slider"
+        <Typography gutterBottom component="label">
+          N. máximo de Participantes
+        </Typography>
+
+        <MySlider
+          aria-labelledby="participants-slider"
           step={1}
           marks
           name="maxParticipants"
-          valueLabelDisplay="on"
-          onChange={handleChangeNumber}
+          valueLabelDisplay={item.leagueId ? "on" : "auto"}
+          onChange={handleChangeSlider}
           value={values.maxParticipants}
           min={1}
           max={1000}
-          color="primary"
+          id="maxParticipants"
         />
       </FormControl>
 
@@ -287,9 +286,10 @@ const LeagueForm = ({
         />
       </FormControl>
       <FormControl variant="outlined" className={classes.control}>
-        <InputLabel htmlFor="outlined-age-native-simple">Game</InputLabel>
+        <InputLabel htmlFor="gameId">Game</InputLabel>
         <Select
           native
+          id="gameId"
           value={values.gameId}
           onChange={handleChangeSelect}
           label="Game"
