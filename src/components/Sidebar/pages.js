@@ -30,8 +30,17 @@ const ADMIN = [
   },
   {
     title: "Ligas",
-    href: "/admin/leagues",
     icon: <GamepadIcon />,
+    nesteds: [
+      {
+        title: "Listar",
+        href: "/admin/leagues",
+      },
+      {
+        title: "Criar",
+        href: "/admin/league/create",
+      },
+    ],
   },
   {
     title: "Players",
@@ -78,8 +87,17 @@ const PLAYER = [
   },
   {
     title: "Minhas Ligas",
-    href: "/player/leagues",
     icon: <GamepadIcon />,
+    nesteds: [
+      {
+        title: "Listar",
+        href: "/player/leagues",
+      },
+      {
+        title: "Criar",
+        href: "/player/league/create",
+      },
+    ],
   },
 ];
 

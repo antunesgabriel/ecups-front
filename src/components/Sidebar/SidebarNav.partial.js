@@ -1,11 +1,18 @@
 /* eslint-disable react/no-multi-comp */
 /* eslint-disable react/display-name */
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 
 import { makeStyles } from "@material-ui/styles";
-import { List, ListItem, Button, colors } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  Button,
+  colors,
+  Divider,
+  Collapse,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -46,25 +53,68 @@ const CustomRouterLink = forwardRef((props, ref) => (
   </div>
 ));
 
-const SidebarNav = (props) => {
-  const { pages, className, ...rest } = props;
-
+const SidebarNav = ({ pages, className, ...rest }) => {
+  const [open, setOpen] = useState(true);
   const classes = useStyles();
+
+  const handleOpenNested = () => setOpen(!open);
 
   return (
     <List {...rest} className={clsx(classes.root, className)}>
       {pages.map((page) => (
-        <ListItem className={classes.item} disableGutters key={page.title}>
-          <Button
-            activeClassName={classes.active}
-            className={classes.button}
-            component={CustomRouterLink}
-            to={page.href}
-          >
-            <div className={classes.icon}>{page.icon}</div>
-            {page.title}
-          </Button>
-        </ListItem>
+        <>
+          {!!page.nesteds ? (
+            <>
+              <ListItem
+                className={classes.item}
+                disableGutters
+                key={`${page.title.replace(" ", "")}`}
+              >
+                <Button
+                  activeClassName={classes.active}
+                  className={classes.button}
+                  onClick={handleOpenNested}
+                >
+                  <div className={classes.icon}>{page.icon}</div>
+                  {page.title}
+                </Button>
+              </ListItem>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <Divider />
+                <List component="div" disablePadding>
+                  {page.nesteds.map((nested) => (
+                    <ListItem
+                      disableGutters
+                      className={classes.item}
+                      key={`${nested.title}${nested.href}`}
+                    >
+                      <Button
+                        activeClassName={classes.active}
+                        className={classes.button}
+                        component={CustomRouterLink}
+                        to={nested.href}
+                      >
+                        {nested.title}
+                      </Button>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            </>
+          ) : (
+            <ListItem className={classes.item} disableGutters key={page.title}>
+              <Button
+                activeClassName={classes.active}
+                className={classes.button}
+                component={CustomRouterLink}
+                to={page.href}
+              >
+                <div className={classes.icon}>{page.icon}</div>
+                {page.title}
+              </Button>
+            </ListItem>
+          )}
+        </>
       ))}
     </List>
   );
