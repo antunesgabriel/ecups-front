@@ -17,11 +17,12 @@ import GamePage from "~/pages/Admin/Game/Game.page";
 import RolePage from "~/pages/Admin/Role/Role.page";
 import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
 import PlayersPage from "~/pages/Admin/Players/Players.page";
-import LeaguesPage from "~/pages/Leagues/Leagues.page";
+import LeagueListPage from "~/pages/Leagues/LeaguesList.page";
 import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
 import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
 import PlayerInvitationPage from "~/pages/Players/PlayerInvitaion/PlayerInvitation.page";
 import SubscriptionPage from "~/pages/Subscription/Subscription.page";
+import LeagueCreatePage from "~/pages/Leagues/LeagueCreate/LeagueCreate.page";
 
 const Routes = () => (
   <Switch>
@@ -42,7 +43,18 @@ const Routes = () => (
       component={LeagueTypePage}
     />
     <RouteAdmin exact path="/admin/players" isPrivate component={PlayersPage} />
-    <RouteAdmin exact path="/admin/leagues" isPrivate component={LeaguesPage} />
+    <RouteAdmin
+      exact
+      path="/admin/leagues"
+      isPrivate
+      component={LeagueListPage}
+    />
+    <RouteAdmin
+      exact
+      path="/admin/league/create"
+      isPrivate
+      component={LeagueCreatePage}
+    />
 
     {/* PLAYER ROUTES */}
     <RoutePlayer exact path="/player/signin" component={SignInPlayer} />
@@ -58,7 +70,13 @@ const Routes = () => (
       exact
       path="/player/leagues"
       isPrivate
-      component={LeaguesPage}
+      component={LeagueListPage}
+    />
+    <RoutePlayer
+      exact
+      path="/player/league/create"
+      isPrivate
+      component={LeagueCreatePage}
     />
     <RoutePlayer
       exact

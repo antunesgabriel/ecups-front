@@ -10,7 +10,7 @@ import Footer from "~/components/Footer/Footer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
-import api, { APIURL } from "~/services/api";
+import api from "~/services/api";
 import { LeaguesItem } from "./components/LeaguesItem";
 
 function RootPage({ setFeedback }) {
@@ -23,7 +23,7 @@ function RootPage({ setFeedback }) {
 
   const getLeagues = async () => {
     try {
-      const { data } = await api.get(`${APIURL}/league/all`);
+      const { data } = await api.get("/league/all");
       setLeagues(data.items);
       setLoading(false);
     } catch (err) {

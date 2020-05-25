@@ -27,12 +27,13 @@ export const useStyles = makeStyles((theme) => ({
     position: "absolute",
     padding: theme.spacing(2),
     background:
-      "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 80%, rgba(0,0,0,0) 100%)",
-    height: "auto",
+      "linear-gradient(to top, rgba(0,0,0, 0.9) 0%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,0.8) 100%)",
+    height: `calc(100% - ${theme.spacing(3)}px)`,
     left: 12,
     right: 12,
     display: "flex",
     flexDirection: "column",
+    justifyContent: "flex-end",
   },
   imgTitle: {
     color: theme.palette.primary.light,

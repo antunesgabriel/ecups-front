@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginRight: theme.spacing(1),
   },
+  inline: {
+    display: "flex",
+    flexDirection: "row",
+  },
   active: {
     color: theme.palette.primary.main,
     fontWeight: theme.typography.fontWeightMedium,
@@ -77,8 +81,10 @@ const Nested = ({ open, handleOpenNested, classes, page }) => (
   <>
     <ListItem className={classes.item} disableGutters>
       <Button className={classes.buttonNested} onClick={handleOpenNested}>
-        <div className={classes.icon}>{page.icon}</div>
-        {page.title}
+        <div className={classes.inline}>
+          <div className={classes.icon}>{page.icon}</div>
+          {page.title}
+        </div>
         <KeyboardArrowDownIcon />
       </Button>
     </ListItem>
@@ -106,7 +112,7 @@ const Nested = ({ open, handleOpenNested, classes, page }) => (
 );
 
 const SidebarNav = ({ pages, className, ...rest }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
 
   const handleOpenNested = () => setOpen(!open);

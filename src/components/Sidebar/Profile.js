@@ -34,7 +34,7 @@ const Profile = ({ user, className, ...rest }) => {
         className={classes.avatar}
         component={RouterLink}
         src={user.avatar ? `${APIURL}/files/${user.avatar}` : ""}
-        to="/admin/account"
+        to={`/${user.role.role.toLowerCase()}/perfil`}
       />
       <Typography className={classes.name} variant="h4">
         {user.name}

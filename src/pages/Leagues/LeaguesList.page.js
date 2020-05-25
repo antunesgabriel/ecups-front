@@ -10,9 +10,7 @@ import DinamicTable from "~/components/DinamicTable/DinamicTable";
 import api from "~/services/api";
 import FeedbackActions from "~/redux/ducks/feedbackDuck";
 import { ModalConfirm } from "~/components/ModalConfirm/ModalConfirm";
-import history from "~/utils/history";
-
-import LeagueForm from "./components/LeagueForm";
+import { useHistory } from "react-router-dom";
 
 const cols = [
   { col: "Liga", id: "col-league" },
@@ -36,22 +34,20 @@ const keys = [
   { key: "game.logo", type: "img" },
 ];
 
-const PlayersPage = ({ setFeedback }) => {
-  const [roles, setRole] = useState([]);
+function LeaguesListPage({ setFeedback, role }) {
+  const [leagues, setLeagues] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [choseItem, setChoseItem] = useState(null);
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
-  const [games, setGames] = useState([]);
-  const [leagueTypes, setLeagueTypes] = useState([]);
-  const [openForm, setOpenForm] = useState(false);
+  const [myRole] = useState(role.role.toLowerCase());
 
   const END_POINT = "/league";
   const ID = "leagueId";
+  const history = useHistory();
 
   useEffect(() => {
     getList();
-    getGameAndTypes();
   }, []);
 
   // Pagination
@@ -81,30 +77,12 @@ const PlayersPage = ({ setFeedback }) => {
 
   // Edit
   const handleEditItem = (item) => {
-    setChoseItem(item);
-    setOpenForm(true);
+    history.push(`/${myRole}/league/create?leagueId=${item.leagueId}`);
   };
 
+  // Create
   const handleClickNewItem = () => {
-    setChoseItem({
-      league: "",
-      rules: "",
-      description: "",
-      roundTrip: false,
-      maxParticipants: 1,
-      forTeams: false,
-      leagueStart: "",
-      leagueEnd: "",
-      needAddress: false,
-      leagueTypeId: undefined,
-      gameId: undefined,
-    });
-    setOpenForm(true);
-  };
-
-  const handleCloseForm = () => {
-    setOpenForm(false);
-    setChoseItem(null);
+    history.push(`/${myRole}/league/create`);
   };
 
   // Requests
@@ -113,47 +91,12 @@ const PlayersPage = ({ setFeedback }) => {
       const { data } = await api.get(
         `${END_POINT}?page=${page}&limit=${rowsPerPage}`
       );
-      setRole(data.items);
+      setLeagues(data.items);
     } catch (err) {
       if (err.response && err.response.status < 500) {
         return setFeedback("error", err.response.data.message);
       }
       return setFeedback("error", "Ops! Algo de errado aconteceu");
-    }
-  };
-
-  const getGameAndTypes = async () => {
-    try {
-      const [response1, response2] = await Promise.all([
-        api.get("/game/all"),
-        api.get("/league-type/all"),
-      ]);
-
-      if (!response1.data.length) {
-        setFeedback(
-          "warning",
-          "Ainda não possuimos games cadastrados para criar ligas/campeonatos, entre em contato com suporte e peça seu game =D"
-        );
-        history.push("/");
-        return;
-      }
-
-      if (!response2.data.length) {
-        setFeedback(
-          "warning",
-          "Ainda não possuimos tipos de ligas/campeonatos cadastrados para criar ligas/campeonatos"
-        );
-        history.push("/");
-        return;
-      }
-
-      setGames(response1.data);
-      setLeagueTypes(response2.data);
-    } catch (err) {
-      if (err.response && err.response.status < 500) {
-        return setFeedback("error", err.response.data.message);
-      }
-      return setFeedback("error", "Ops! Algo de errado aconteceu ao tentar");
     }
   };
 
@@ -180,21 +123,9 @@ const PlayersPage = ({ setFeedback }) => {
         openModalConfirm={openModalConfirm}
         handleConfirm={handleConfirm}
       />
-      {!!choseItem && (
-        <LeagueForm
-          setChoseItem={setChoseItem}
-          item={choseItem}
-          getList={getList}
-          setFeedback={setFeedback}
-          openForm={openForm}
-          handleCloseForm={handleCloseForm}
-          leagueTypes={leagueTypes}
-          games={games}
-        />
-      )}
       <Toolbar handleClickNewItem={handleClickNewItem} />
       <DinamicTable
-        items={roles}
+        items={leagues}
         cols={cols}
         keys={keys}
         id={ID}
@@ -208,9 +139,13 @@ const PlayersPage = ({ setFeedback }) => {
       />
     </Layout>
   );
-};
+}
+
+const mapStateToProps = (state) => ({
+  role: state.user.user.role,
+});
 
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 
-export default connect(null, mapActionsToProps)(PlayersPage);
+export default connect(mapStateToProps, mapActionsToProps)(LeaguesListPage);
