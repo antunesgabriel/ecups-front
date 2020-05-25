@@ -32,10 +32,14 @@ export const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 100,
     color: "#fff",
   },
   marginLabel: {
     marginBottom: theme.spacing(0.3),
+  },
+  small: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
   },
 }));

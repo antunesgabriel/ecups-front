@@ -2,17 +2,11 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, useState } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import clsx from "clsx";
 
 import { makeStyles } from "@material-ui/styles";
-import {
-  List,
-  ListItem,
-  Button,
-  colors,
-  Divider,
-  Collapse,
-} from "@material-ui/core";
+import { List, ListItem, Button, colors, Collapse } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
     color: colors.grey[500],
     padding: "10px 8px",
     justifyContent: "flex-start",
+    textTransform: "none",
+    letterSpacing: 0,
+    width: "100%",
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  buttonNested: {
+    color: colors.grey[500],
+    padding: "10px 8px",
+    justifyContent: "space-between",
     textTransform: "none",
     letterSpacing: 0,
     width: "100%",
@@ -45,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.main,
     },
   },
+  nested: {
+    paddingLeft: theme.spacing(2),
+  },
 }));
 
 const CustomRouterLink = forwardRef((props, ref) => (
@@ -52,6 +58,52 @@ const CustomRouterLink = forwardRef((props, ref) => (
     <RouterLink {...props} />
   </div>
 ));
+
+const Normal = ({ classes, page }) => (
+  <ListItem className={classes.item} disableGutters key={page.title}>
+    <Button
+      activeClassName={classes.active}
+      className={classes.button}
+      component={CustomRouterLink}
+      to={page.href}
+    >
+      <div className={classes.icon}>{page.icon}</div>
+      {page.title}
+    </Button>
+  </ListItem>
+);
+
+const Nested = ({ open, handleOpenNested, classes, page }) => (
+  <>
+    <ListItem className={classes.item} disableGutters>
+      <Button className={classes.buttonNested} onClick={handleOpenNested}>
+        <div className={classes.icon}>{page.icon}</div>
+        {page.title}
+        <KeyboardArrowDownIcon />
+      </Button>
+    </ListItem>
+    <Collapse in={open} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        {page.nesteds.map((nested) => (
+          <ListItem
+            disableGutters
+            className={classes.item}
+            key={`${nested.title}${nested.href}`}
+          >
+            <Button
+              activeClassName={classes.active}
+              className={classes.button}
+              component={CustomRouterLink}
+              to={nested.href}
+            >
+              <span className={classes.nested}>{nested.title}</span>
+            </Button>
+          </ListItem>
+        ))}
+      </List>
+    </Collapse>
+  </>
+);
 
 const SidebarNav = ({ pages, className, ...rest }) => {
   const [open, setOpen] = useState(true);
@@ -62,59 +114,18 @@ const SidebarNav = ({ pages, className, ...rest }) => {
   return (
     <List {...rest} className={clsx(classes.root, className)}>
       {pages.map((page) => (
-        <>
+        <div key={page.title}>
           {!!page.nesteds ? (
-            <>
-              <ListItem
-                className={classes.item}
-                disableGutters
-                key={`${page.title.replace(" ", "")}`}
-              >
-                <Button
-                  activeClassName={classes.active}
-                  className={classes.button}
-                  onClick={handleOpenNested}
-                >
-                  <div className={classes.icon}>{page.icon}</div>
-                  {page.title}
-                </Button>
-              </ListItem>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <Divider />
-                <List component="div" disablePadding>
-                  {page.nesteds.map((nested) => (
-                    <ListItem
-                      disableGutters
-                      className={classes.item}
-                      key={`${nested.title}${nested.href}`}
-                    >
-                      <Button
-                        activeClassName={classes.active}
-                        className={classes.button}
-                        component={CustomRouterLink}
-                        to={nested.href}
-                      >
-                        {nested.title}
-                      </Button>
-                    </ListItem>
-                  ))}
-                </List>
-              </Collapse>
-            </>
+            <Nested
+              classes={classes}
+              page={page}
+              handleOpenNested={handleOpenNested}
+              open={open}
+            />
           ) : (
-            <ListItem className={classes.item} disableGutters key={page.title}>
-              <Button
-                activeClassName={classes.active}
-                className={classes.button}
-                component={CustomRouterLink}
-                to={page.href}
-              >
-                <div className={classes.icon}>{page.icon}</div>
-                {page.title}
-              </Button>
-            </ListItem>
+            <Normal classes={classes} page={page} />
           )}
-        </>
+        </div>
       ))}
     </List>
   );
