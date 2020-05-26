@@ -26,8 +26,9 @@ import { Skeleton } from "@material-ui/lab";
 
 const getDays = (date) => {
   const days = differenceInDays(parseISO(date), new Date());
+
   if (!days) {
-    return `Começa hoje ás ${format(date, "Hh:mm:ss")}hrs`;
+    return `Começa hoje ás ${format(parseISO(date), "H:m")}hrs`;
   }
   return `Faltam ${days} ${days > 1 ? "dias" : "dia"} para o inicio desta liga`;
 };
@@ -238,7 +239,7 @@ function LeagueInfoPage({ setFeedback, signed }) {
                   <b className={classes.right}>Data inicio da liga:</b>
                   {format(
                     parseISO(league.leagueStart),
-                    "dd/MM/Y 'ás' HH:mm:ss'Hrs'"
+                    "dd/MM/Y 'ás' H:mm'hrs'"
                   )}
                 </Typography>
                 <Typography
@@ -250,7 +251,7 @@ function LeagueInfoPage({ setFeedback, signed }) {
                   {league.leagueEnd
                     ? format(
                         parseISO(league.leagueEnd),
-                        "dd/MM/Y 'ás' HH:mm:ss'Hrs'"
+                        "dd/MM/Y 'ás' H:mm'hrs'"
                       )
                     : "Não definida"}
                 </Typography>

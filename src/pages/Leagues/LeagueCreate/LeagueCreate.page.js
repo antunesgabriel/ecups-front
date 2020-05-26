@@ -261,84 +261,85 @@ function LeagueCreatePage({ setFeedback, role }) {
         <CircularProgress color="inherit" />
       </Backdrop>
       <Container maxWidth="sm">
-        <Grid container spacing={3}>
-          <Grid item md={12} xs={12}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          {activeStep === steps.length ? (
             <div>
-              {activeStep === steps.length ? (
-                <div>
-                  <Typography className={classes.instructions}>
-                    Informações salvas com sucesso!
-                  </Typography>
-                </div>
-              ) : (
-                <div>
-                  <div className={classes.content}>
-                    <Typography>{getStepContent(activeStep)}</Typography>
-                    {activeStep < 2 && (
-                      <Paper className={classes.paper}>
-                        {activeStep === 0 && (
-                          <LeagueForm
-                            classes={classes}
-                            values={values}
-                            handleChangeText={handleChangeText}
-                            handleSaveRTE={handleSaveRTE}
-                            handleChangeChecked={handleChangeChecked}
-                            edited={edited}
-                            handleChangeSlider={handleChangeSlider}
-                            handleStartDateChange={handleStartDateChange}
-                            handleEndDateChange={handleEndDateChange}
-                            handleChangeSelect={handleChangeSelect}
-                            games={games}
-                            leagueTypes={leagueTypes}
-                          />
-                        )}
-                        {activeStep === 1 && (
-                          <Thumb
-                            thumb={thumb}
-                            handleChangeThumb={handleChangeThumb}
-                            league={values.league}
-                          />
-                        )}
-                      </Paper>
-                    )}
-                  </div>
-                  <div>
-                    <Button
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      className={classes.backButton}
-                    >
-                      Voltar
-                    </Button>
-
-                    <Button
-                      variant="text"
-                      onClick={handleNext}
-                      className={classes.backButton}
-                      disabled={activeStep === steps.length - 1}
-                    >
-                      Próximo
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={edited ? handleUpdate : handleCreate}
-                    >
-                      Salvar
-                    </Button>
-                  </div>
-                </div>
-              )}
+              <Typography className={classes.instructions}>
+                Informações salvas com sucesso!
+              </Typography>
             </div>
-          </Grid>
-        </Grid>
+          ) : (
+            <div>
+              <div className={classes.content}>
+                <Typography>{getStepContent(activeStep)}</Typography>
+                {activeStep < 2 && (
+                  <Paper
+                    className={classes.paper}
+                    component={Grid}
+                    container
+                    spacing={3}
+                  >
+                    {activeStep === 0 && (
+                      <LeagueForm
+                        classes={classes}
+                        values={values}
+                        handleChangeText={handleChangeText}
+                        handleSaveRTE={handleSaveRTE}
+                        handleChangeChecked={handleChangeChecked}
+                        edited={edited}
+                        handleChangeSlider={handleChangeSlider}
+                        handleStartDateChange={handleStartDateChange}
+                        handleEndDateChange={handleEndDateChange}
+                        handleChangeSelect={handleChangeSelect}
+                        games={games}
+                        leagueTypes={leagueTypes}
+                      />
+                    )}
+                    {activeStep === 1 && (
+                      <Thumb
+                        thumb={thumb}
+                        handleChangeThumb={handleChangeThumb}
+                        league={values.league}
+                      />
+                    )}
+                  </Paper>
+                )}
+              </div>
+              <div>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.backButton}
+                >
+                  Voltar
+                </Button>
+
+                <Button
+                  variant="text"
+                  onClick={handleNext}
+                  className={classes.backButton}
+                  disabled={activeStep === steps.length - 1}
+                >
+                  Próximo
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={edited ? handleUpdate : handleCreate}
+                >
+                  Salvar
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </Container>
     </Layout>
   );
