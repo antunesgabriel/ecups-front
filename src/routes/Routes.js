@@ -23,10 +23,12 @@ import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
 import PlayerInvitationPage from "~/pages/Players/PlayerInvitaion/PlayerInvitation.page";
 import SubscriptionPage from "~/pages/Subscription/Subscription.page";
 import LeagueCreatePage from "~/pages/Leagues/LeagueCreate/LeagueCreate.page";
+import LeagueInfoPage from "~/pages/LeagueInfo/LeagueInfo.page";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={RootPage} />
+    <Route exact path="/league/info" component={LeagueInfoPage} />
     <Route exact path="/logout" component={LogoutPage} />
 
     {/* ADMIN ROUTES */}
