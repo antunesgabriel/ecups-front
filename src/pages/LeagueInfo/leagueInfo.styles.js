@@ -51,4 +51,18 @@ export const useStyles = makeStyles((theme) => ({
     opacity: 0.7,
     transition: theme.transitions.create("opacity"),
   },
+  margin: {
+    marginBottom: theme.spacing(1),
+  },
+  right: {
+    marginRight: theme.spacing(1),
+  },
+  subscribe: {
+    borderColor: theme.palette.success.main,
+    "&:hover": {
+      backgroundColor: theme.palette.success.main,
+      color: theme.palette.success.light,
+    },
+    color: theme.palette.success.main,
+  },
 }));

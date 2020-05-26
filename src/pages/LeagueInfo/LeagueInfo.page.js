@@ -8,6 +8,8 @@ import {
   Tabs,
   Tab,
   Box,
+  Button,
+  CircularProgress,
 } from "@material-ui/core";
 import { useLocation, useHistory } from "react-router-dom";
 import { parseISO, differenceInDays, format } from "date-fns";
@@ -48,9 +50,10 @@ function TabPanel({ children, value, index, ...other }) {
   );
 }
 
-function LeagueInfoPage({ setFeedback }) {
+function LeagueInfoPage({ setFeedback, signed }) {
   const [league, setLeague] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingSubscribe, setLoadingSubscribe] = useState(false);
   const [tab, setTab] = useState(0);
 
   const classes = useStyles();
@@ -100,6 +103,36 @@ function LeagueInfoPage({ setFeedback }) {
 
   const handleChangeTab = (event, newValue) => {
     setTab(newValue);
+  };
+
+  const subscribe = async () => {
+    try {
+      setLoadingSubscribe(true);
+      const { data } = await api.post("/subscription", {
+        leagueId: league.leagueId,
+      });
+      setFeedback("info", data.message);
+      history.push("/player/subscriptions");
+    } catch (err) {
+      if (err.response && err.response.status < 500) {
+        setFeedback("error", err.response.data.message);
+      }
+
+      if (!err.response || err.response.status >= 500) {
+        setFeedback(
+          "error",
+          "Ops! Algo de errado aconteceu ao tentar se comunicar com o servidor"
+        );
+      }
+    } finally {
+      setLoadingSubscribe(false);
+    }
+  };
+
+  const login = () => {
+    const state = { from: location };
+
+    history.push("/player/signin", state);
   };
 
   return (
@@ -186,7 +219,88 @@ function LeagueInfoPage({ setFeedback }) {
             )}
           </TabPanel>
           <TabPanel value={tab} index={2}>
-            Item Three
+            {loading ? (
+              <>
+                <Skeleton width="100%" variant="text" />
+                <Skeleton width="100%" variant="text" />
+                <Skeleton width="100%" variant="text" />
+                <Skeleton width="100%" variant="text" />
+                <Skeleton width="100%" variant="text" />
+                <Skeleton width="100%" variant="text" />
+              </>
+            ) : (
+              <>
+                <Typography
+                  component="p"
+                  variant="body1"
+                  className={classes.margin}
+                >
+                  <b className={classes.right}>Data inicio da liga:</b>
+                  {format(
+                    parseISO(league.leagueStart),
+                    "dd/MM/Y 'ás' HH:mm:ss'Hrs'"
+                  )}
+                </Typography>
+                <Typography
+                  component="p"
+                  variant="body1"
+                  className={classes.margin}
+                >
+                  <b className={classes.right}>Data fim da liga:</b>
+                  {league.leagueEnd
+                    ? format(
+                        parseISO(league.leagueEnd),
+                        "dd/MM/Y 'ás' HH:mm:ss'Hrs'"
+                      )
+                    : "Não definida"}
+                </Typography>
+                <Typography
+                  component="p"
+                  variant="body1"
+                  className={classes.margin}
+                >
+                  <b className={classes.right}>Disputa entre:</b>
+                  {league.forTeams ? "Times" : "Players"}
+                </Typography>
+
+                <Typography
+                  component="p"
+                  variant="body1"
+                  className={classes.margin}
+                >
+                  <b className={classes.right}>Jogo de ida e volta:</b>
+                  {league.roundTrip ? "Sim" : "Não"}
+                </Typography>
+
+                <Typography
+                  component="p"
+                  variant="subtitle2"
+                  className={classes.margin}
+                >
+                  Clique em <b>SOLICITAR INSCRIÇÃO</b> e aguarde o organizador
+                  aceitar ou recusar sua entrada na liga
+                </Typography>
+
+                {signed ? (
+                  <Button
+                    variant="outlined"
+                    className={classes.subscribe}
+                    onClick={subscribe}
+                    disabled={loadingSubscribe}
+                  >
+                    {loadingSubscribe ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : (
+                      "Solicitar Inscrição"
+                    )}
+                  </Button>
+                ) : (
+                  <Button variant="outlined" onClick={login}>
+                    Fazer login
+                  </Button>
+                )}
+              </>
+            )}
           </TabPanel>
         </Paper>
       </Container>
@@ -194,7 +308,11 @@ function LeagueInfoPage({ setFeedback }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  signed: state.auth.signed,
+});
+
 const mapActionsToProps = (dispatch) =>
   bindActionCreators(FeedbackActions, dispatch);
 
-export default connect(null, mapActionsToProps)(LeagueInfoPage);
+export default connect(mapStateToProps, mapActionsToProps)(LeagueInfoPage);

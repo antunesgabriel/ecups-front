@@ -59,8 +59,10 @@ function SignInPage({ signIn, loading, setFeedback }) {
   };
 
   const loginAdmin = () => {
-    const { from } = location.state || { from: { pathname: "/admin/home" } };
-    signIn(email, password, from.pathname);
+    const { from } = location.state || {
+      from: { pathname: "/admin/home", search: "" },
+    };
+    signIn(email, password, `${from.pathname}${from.search}`);
   };
 
   const classes = useStyles();

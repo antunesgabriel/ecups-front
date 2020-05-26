@@ -12,11 +12,10 @@ function SubscriptionPage() {
     <Layout>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12} md={12} lg={12}>
-          <Requests />
-        </Grid>
-
-        <Grid item xs={12} sm={12} md={12} lg={12}>
           <Subscriptions />
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Requests />
         </Grid>
       </Grid>
     </Layout>
