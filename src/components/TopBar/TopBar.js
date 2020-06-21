@@ -93,7 +93,7 @@ const TopBar = ({ onSidebarOpen, user }) => {
     <AppBar className={clsx(classes.root)}>
       <Toolbar>
         <RouterLink to="/">
-          <img alt="Logo" src="/img/logoLargue.png" className={classes.logo} />
+          <img alt="Logo" src="/img/logo.png" className={classes.logo} />
         </RouterLink>
         <div className={classes.flexGrow} />
         <>
