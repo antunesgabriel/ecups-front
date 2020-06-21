@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4),
     backgroundColor: theme.palette.background.dark,
     color: theme.palette.text.disable,
+    display: "flex",
+    justifyContent: "flex-end",
+    flexDirection: "column",
+    alignItems: "flex-end",
   },
   link: {
     color: theme.palette.text.disable,
@@ -26,15 +30,15 @@ const Footer = (props) => {
         &copy;{" "}
         <Link
           component="a"
-          href="http://localhost:3000"
+          href="https://github.com/antunesgabriel"
           target="_blank"
           className={classes.link}
         >
-          eCups
+          Gabriel Antunes
         </Link>
         . 2020
       </Typography>
-      <Typography variant="caption">Seja um Pro Player!</Typography>
+      <Typography variant="caption">Ecups - Seja um Pro Player!</Typography>
     </div>
   );
 };
