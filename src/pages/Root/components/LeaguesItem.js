@@ -44,6 +44,13 @@ export const LeaguesItem = ({ leagues, classes }) => {
           </Grid>
         </Fade>
       ))}
+      {!leagues.length && (
+        <div className={classes.center}>
+          <Typography variant="caption" align="center">
+            Nenhuma liga disponível
+          </Typography>
+        </div>
+      )}
     </>
   );
 };

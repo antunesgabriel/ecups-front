@@ -5,10 +5,18 @@ export const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
+    minHeight: "50vh",
+    flex: 1,
   },
   h4: {
     marginBottom: theme.spacing(4),
     color: theme.palette.primary.light,
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    maxWidth: "100%",
   },
   img: {
     width: "100%",
