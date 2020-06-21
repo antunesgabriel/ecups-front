@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
 import { Typography, Link } from "@material-ui/core";
+import { Link as RLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,11 +35,13 @@ const Footer = (props) => {
           target="_blank"
           className={classes.link}
         >
-          Gabriel Antunes
+          By Gabriel Antunes
         </Link>
         . 2020
       </Typography>
-      <Typography variant="caption">Ecups - Seja um Pro Player!</Typography>
+      <Typography variant="caption">
+        <RLink to="/admin/signin">Ecups</RLink> - Seja um Pro Player!
+      </Typography>
     </div>
   );
 };
