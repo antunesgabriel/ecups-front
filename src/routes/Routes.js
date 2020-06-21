@@ -18,7 +18,7 @@ import RolePage from "~/pages/Admin/Role/Role.page";
 import LeagueTypePage from "~/pages/Admin/LeagueType/LeagueType.page";
 import PlayersPage from "~/pages/Admin/Players/Players.page";
 import LeagueListPage from "~/pages/Leagues/LeaguesList.page";
-import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
+// import PlayerHomePage from "~/pages/Players/PlayerHome/PlayerHome.page";
 import PlayerTeamPage from "~/pages/Players/PlayerTeam/PlayerTeam.page";
 import PlayerInvitationPage from "~/pages/Players/PlayerInvitaion/PlayerInvitation.page";
 import SubscriptionPage from "~/pages/Subscription/Subscription.page";
@@ -61,12 +61,12 @@ const Routes = () => (
     {/* PLAYER ROUTES */}
     <RoutePlayer exact path="/player/signin" component={SignInPlayer} />
     <RoutePlayer exact path="/player/signup" component={SignUpPlayer} />
-    <RoutePlayer
+    {/* <RoutePlayer
       exact
       path="/player/home"
       isPrivate
       component={PlayerHomePage}
-    />
+    /> */}
     <RoutePlayer exact path="/player/perfil" isPrivate component={Perfil} />
     <RoutePlayer
       exact

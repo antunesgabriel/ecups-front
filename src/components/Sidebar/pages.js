@@ -60,10 +60,15 @@ const ADMIN = [
 ];
 
 const PLAYER = [
+  // {
+  //   title: "Inicio",
+  //   href: "/player/home",
+  //   icon: <HomeIcon />,
+  // },
   {
-    title: "Inicio",
-    href: "/player/home",
-    icon: <HomeIcon />,
+    title: "Inscrições",
+    href: "/player/subscriptions",
+    icon: <AssignmentIcon />,
   },
   {
     title: "Time",
@@ -79,11 +84,6 @@ const PLAYER = [
     title: "Convites",
     href: "/player/invitations",
     icon: <EmailIcon />,
-  },
-  {
-    title: "Inscrições",
-    href: "/player/subscriptions",
-    icon: <AssignmentIcon />,
   },
   {
     title: "Minhas Ligas",

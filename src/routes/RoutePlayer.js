@@ -44,7 +44,7 @@ function RoutePlayer({
   }
 
   if (signed && !isPrivate && role && role.role === PLAYER) {
-    return <Redirect to="/player/home" />;
+    return <Redirect to="/player/subscriptions" />;
   }
 
   return <Route {...rest} component={Component} />;

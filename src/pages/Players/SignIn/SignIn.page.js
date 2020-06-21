@@ -60,7 +60,7 @@ function SignInPage({ signIn, loading, setFeedback }) {
 
   const loginPlayer = () => {
     const { from } = location.state || {
-      from: { pathname: "/player/home", search: "" },
+      from: { pathname: "/player/subscriptions", search: "" },
     };
     signIn(email, password, `${from.pathname}${from.search}`);
   };
