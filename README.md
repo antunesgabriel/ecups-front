@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Ecups
 
-## Available Scripts
+Ecups é uma aplicação para gestão de campeonatos de e-sports.
+O intuito dela é ser rápido! Sem muitas burocracias, é destinada
+a gamers comuns que querem jogar um campeonato amador com seus parças
+no final de semana <3.
 
-In the project directory, you can run:
+Sou um apaixonado por novos conhecimentos, então em cada projeto me encarreguei de testar novas tecnologias e me aperfeicoar em algumas que eu ja conhecia =D.
 
-### `yarn start`
+## Partes do Ecups:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 1 [Api - Em Andamento - (NestJS, MongoDB, Postgresql, Typescript)](https://github.com/antunesgabriel/ecups)
+- 2 [Front Web - Em Andamento - (ReactJS, Material-ui)](https://github.com/antunesgabriel/ecups-front)
+- 3 [App - Em Andamento - (React Native, Typescript, React Native UI Kitten, Git Flow)](https://github.com/antunesgabriel/ecups-app)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Como rodar:
 
-### `yarn test`
+- 1 Clone o projeto:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```console
+$ git clone https://github.com/antunesgabriel/ecups-front && cd ecups-front
+```
 
-### `yarn build`
+- 2 Instale as dependecias:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```console
+$ yarn or npm i
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 3 Sete as variaveis de ambiente:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```console
+$ cp ./.env.example ./.env
+$ gedit ./.env
+```
 
-### `yarn eject`
+```env
+REACT_APP_API_URL= url da api
+REACT_APP_ADMIN_ROLE=ADMIN
+REACT_APP_PLAYER_ROLE=PLAYER
+REACT_APP_PERSIST_KEY=key_do_redux_persist
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 4 Rode a aplicação:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```console
+$ yarn start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- 5 Voalá! App rodando em http://localhost:3000
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Login como admin: http://localhost:3000/admin/signin <br>
+Login como player: http://localhost:3000/player/signin
